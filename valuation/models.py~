@@ -1,0 +1,21 @@
+from django.db import models
+
+# Create your models here.
+
+class Family(models.Model):
+	family_id = models.IntegerField(max_length=50)
+	card_no = models.IntegerField(max_length=200)
+	income = models.IntegerField(max_length=50)
+	address = models.CharField(max_length=50)
+	attendance = models.Primarykey('Attendance')
+
+class Family_mem(models.model):
+	Invidual_id = models.Charfield(max_length=50)
+	Age = models.IntegerField(max_length=50)
+	
+
+class Attendance(models.Model):
+        date = models.DateTimeField(auto_now_add=True)
+	library = models.BooleanField(default=True)
+	food = models.BooleanField(default=True)
+	

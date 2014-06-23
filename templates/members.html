@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block content %}
+<head>
+</head>
+<body bgcolor="yellow">
+{% csrf_token %}
+  <font style = "bold" color = red>Ration ID</font><input type='text' name="rationid" id='rationid'><br>
+
+   <h1>Person Name:</h1> <input type="text" id='name' name="name"><br>
+       <input type="radio" name="sex" value="male">Male<br>
+       <input type="radio" name="sex" value="female">Female
+
+   <h1>Person code:</h1> <input type="text" id='personcode' name="personcode"><br>
+   <h1>Age:</h1> <input type="text" id="age" name="age"><br>	
+   <h1>Qualfication:</h1> <input type="text" id='qualification' name="qualification"><br>
+   <h1>Occupation:</h1> <input type="text" id='occupation' name="occupation"><br>
+
+
+   <button id="myButton" class="float-left submit-button" onclick="document.getElementById('optional_for_student').style.display='block';">Is Student?</button>
+   <div id="optional_for_student" style="display:none;">
+      <h5>Standard: </h5><input type="text" id='standard' name="Standard"><br><br>
+      <h5>Institution: </h5><input type="text" id='institution' name="Institution"><br><br>
+      <h5>Grade: </h5	><input type="text" id='grade' name="Grade"><br><br></div>
+
+
+    <div><br><button id="add" type="add" onclick="add()">ADD</button></br></div>
+
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+  function add() {
+	
+    // console.log(rationid.value)
+
+    var name = document.getElementById("name").value;
+    // console.log(name.value);
+    var x = document.getElementsByName("sex");
+
+    if (x[0].checked) {
+        value = x[0].value;
+        var gender = value;
+
+    } else {
+        var gender = x[1].value;
+    }
+    var ration_id = document.getElementById("rationid").value;
+    var personcode = document.getElementById("personcode").value;
+    var age = document.getElementById("age").value;
+    var qualification = document.getElementById("qualification").value;
+    var occupation = document.getElementById("occupation").value;
+
+    var standard = document.getElementById("standard").value;
+    var institution = document.getElementById("institution").value;
+    var grade = document.getElementById("grade").value;
+
+    var all = {
+        rationcard: ration_id,
+        name: name,
+        personcode: personcode,
+        gender: gender,
+        age: age,
+        qualification: qualification,
+        occupation: occupation,
+        standard: standard,
+        institution: institution,
+        grade: grade
+
+    };
+    console.log(all);
+
+    $.ajax({
+        type: "POST",
+        url: '/members/',
+        data: {
+            all: all,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        },
+        success: function (response) {
+        if (response=='notexists'){alert('sorry !!! The ration ID entered is not exists')}
+        if (response=='notcomplete'){alert('You have to fill all the columns')}
+            console.log(response);
+        },
+
+    });
+}
+</script>
+</body>
+
+
+<!-- <button id="Edit" type="edit">Edit</button> -->
+
+{% endblock %}

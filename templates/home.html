@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!doctype html>
+<body bgcolor="yellow">
+
+    <head>
+        <style type="text/css">
+ 
+            body {font-family:Times, Sans-Serif;}
+ 
+            #container {width:400px; margin:0 auto;}
+ 
+            /* Nicely lines up the labels. */
+            form label {display:inline-block; width:100px;}
+ 
+            /* You could add a class to all the input boxes instead, if you like. That would be safer, and more backwards-compatible */
+            form input[type="text"],
+            form input[type="password"],
+            form input[type="email"] {width:160px;}
+ 
+            form .line {clear:both;}
+            form .line.submit {text-align:right;}
+ 
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <form>
+                <h2>Home page</h2>
+               
+                   <form method="get" action="http://www.mysite.com/search.php"> 
+                   <table cellpadding="0px" cellspacing="0px"> 
+                   <tr> 
+                   <td style="border-style:solid none solid solid;border-color:#4B7B9F;border-width:1px;">
+                   <input type="text" name="zoom_query" style="width:100px; border:0px solid; height:17px; padding:0px 3px; position:relative;"> 
+                   </td>
+                   <td style="border-style:solid;border-color:#4B7B9F;border-width:1px;"> 
+                   <!-- <td style="background: url('{{ STATIC_URL }}images/searchbutton3.JPG') no-repeat;">  -->
+                   <input type="submit" value="" style="border-style: none; background: url('searchbutton3.gif') no-repeat; width: 24px; height: 20px;">
+                   </td>
+                   </tr>
+                   </table>
+                   </form>
+                   
+
+
+                   <h1><a href="/family">FAMILY ID-->></a><h1>
+
+                   <h1><a href="/members">MEMBERS -->></a><h1>
+
+                   <h1><a href='/attendance'>ATTENDANCE -->></a><h1>
+                   
+                   
+                   
+                   <!-- <h3><a href="/Class">CLASSES --><!-- ></a><h3> --> 
+                   
+
+
+ 
+               <!--  <p>Note: Please make sure your details are correct before submitting form and that all fields marked with * are completed!.</p> -->
+            </form>
+        </div>
+    </body> </body>
+    {% endblock %}
+
+<!-- </html>	 -->

@@ -1,0 +1,53 @@
+<!-- {% extends "layout.html" %}
+{% block content%} -->
+
+<html>
+<head>
+<title>
+Login page
+</title>
+</head>
+<body>
+
+
+<h1>Login Page</h1> 
+
+<body bgcolor="yellow">
+
+
+<form name="login">
+  <br>Username :<input type="text1" name="userid"/></br>
+  <br>Password :<input type="password" name="pswrd"/></br>
+
+
+<br><input type="button" onclick="check(this.form)" value="Login"/></br>
+<br><input type="reset" value="Cancel"/></br>
+
+
+
+
+<!-- <a href="/home">login</a><h2>
+ -->
+</form>
+
+
+
+
+<script>
+function check(form)
+{
+ if(form.userid.value == "Sheik" && form.pswrd.value == "123")
+  {
+     window.location.href = "/home";
+  } 
+ else
+ {
+   alert("Error Password or Username")
+  }
+
+}
+</script>
+</body>
+</html> 
+
+<!-- {% endblock%} -->

@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block content %}
+<head>
+	<title></title>
+</head>
+
+<body bgcolor="yellow">
+{% csrf_token %}
+
+
+
+<h1>Ration_ID: </h1><input type="text" id='rationid' name="rationid"><br><br>
+<!-- <button id="edit" type="edit">EDIT</button> -->
+<h1>Address:</h1> <br>
+<h1>Street:</h1> <input type="text" id='street' name="street"><br>
+<h1>City:</h1> <input type="text" id='city' name="city"><br>
+<h1>Zip_Code:</h1> <input type="text" id='code' name="code"><br><br>
+
+
+
+
+<div><br><button id="save"  type="save" onclick="save()">save</button></br></div>
+<!-- </form> -->
+
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+    function save() {
+        var rationid = document.getElementById("rationid").value;
+        var street = document.getElementById("street").value;
+        var city = document.getElementById("city").value;
+        var code = document.getElementById("code").value;
+
+        var all = {
+            rationcard: rationid,
+            street: street,
+            city: city,
+            code: code,
+        };
+
+        console.log(all)
+
+        $.ajax({
+                type: "POST",
+                url: '/family/',
+                data: {
+                    all: all,
+                    csrfmiddlewaretoken: '{{csrf_token}}',
+                },
+
+        // $.ajax({
+        //         type: "GET",
+        //         url: '/familydisplay/',
+        //         data: {
+        //             all: all,
+        //             csrfmiddlewaretoken: '{{csrf_token}}',
+        //         },
+            success: function (response) {
+                if (response=='exists'){alert('sorry !!! The ration ID entered is already exists')}
+                if (response=='notcomplete'){alert('You have to fill all the columns')}
+                console.log(response);
+            },
+            });
+    }
+</script>
+</body>
+
+
+{% endblock %}
+
+
+
