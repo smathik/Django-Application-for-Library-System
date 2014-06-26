@@ -1,240 +1,148 @@
 {% extends "layout.html" %}
 {% block content %}
 <html>
-<title>CodeAve.com(JavaScript: Display/No Display Content)</title>
-</body>
-<form>
 <body bgcolor="yellow">
 
 
-   <h1>Class name:</h1> <input type="text" id="subject" name="subject"><br><br>
-   
-   <!-- <h1>Classes:</h1> 
-       <input type="radio" name="Class" value="morning">Morning
-       <input type="radio" name="Class" value="evening">Evening<br><br> -->
+    <h1>Class name:</h1> <input type="text" id="subject" name="subject"><br><br>
 
-   <!-- <button onclick="myFunction()">Date</button>
-   <p id="demo"></p>
+    <h1>Category :</h1>
+    <input type="radio" name="time" value="morning">Morning
+    <input type="radio" name="time" value="evening">Evening<br><br>
 
- -->
-  <h1>Category :</h1>
-     <input type="radio" name="sex" value="male">Male
-     <input type="radio" name="sex" value="female">Female
-<!-- <input type="radio" name="sex" value="all">All<br>
- -->
-
-  <DIV><a href="javascript:Show_Stuff(display1)">Show</a></DIV>
-  <div><br><span id="display"  style="display:none">show</span></br></div>
-  <span ID="display1" style="display:none">
-  <table  border="1" bgcolor="white" class='familyclass'>
-            <tr>
-                <th>Name</th>
-                <th style="width: 40px;">ID</th>
-                <th>Attendance</th>
-
-            </tr>
-        </thead>
-        <tbody>
-
-         
-</td>
-</tr>
-</table>
-</span>
-</form>
-
-<!-- <div><br><span id="showmem" type="showmem" onclick="showmem()">Show</span></br></div>
- -->
-
-<!-- <table border="1", style='width:300'>
-            <tr>
-                <th>Name</th>
-                <th style="width: 40px;">ID</th>
-                <th>Category</th>
-                <th>occupation</th>
-                <th>ClassName</th>
-                <th>Attendance</th>
-
-            </tr>
-            <tr class='familyclass'></tr> -->
-
-         
-<div><br><button id="save"  type="save" onclick="response()">save</button></br></div>   
-
-</html>
-<head>
-
-<style type="text/css">
-#the-table { border:1px solid #bbb;border-collapse:collapse; }
-#the-table td,#the-table th { border:1px solid #ccc;border-collapse:collapse;padding:5px; }
-      
-</style>
-</head>
-
-<!-- Revised from demo code in ext3.0.0 -->
-<body>
- <!--<script>
-// function myFunction() {
-//     document.getElementById("demo").innerHTML = Date();
-// }
+    <input type="radio" name="sex" value="male">Male
+    <input type="radio" name="sex" value="female">Female
 
 
- <!-function myFunction() {
+    <div id="showhide">
+        <table  border="1" bgcolor="white" class='familyclass'>
+        </table>
+    </div><br>
+    <a href="#" onclick="javascript:show('showhide');">Show</a> 
+    <a href="#" onclick="javascript:hide('showhide');">Hide </a><br><br>
+    <div><br><button id="save" type="save" onclick="save()">Save</button></br></div>
 
-    // var x = document.getElementById("name").name;
-    // document.getElementById("M").innerHTML = x;
-} -->
 
- <!-- <button id="Save" type="save">New</button> -->
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
 
 
-    function Show_Stuff(Click_Menu){          
-          
-            var input_gender = document.getElementsByName('sex');
-            var subject = document.getElementsByName('subject');
-            var timings = document.getElementsByName('timings');
-            var attendance = document.getElementsByName('attendance');
-              {
-              if (input_gender[0].checked) {
-                value = input_gender[0].value;
-                var gender = value;
-              } 
-              else if(input_gender[1].checked) {
-              var gender = input_gender[1].value;
-              }
-              }
-            console.log(gender)
-            $.ajax({
-                type: "POST",
-                url: '/attendance/',
-                data: {
-                    gender: gender,
-                    csrfmiddlewaretoken: '{{csrf_token}}',
-                },
-            },
-        }    
-    success: function (response){
-    console.log(response);
-    var data=response['data'];
-    // console.log(data)
-    for (i=0; i<data.length; i++)
-        { 
-        var name = data[i][0]
-        var code = data[i][1]
-        var checkbox = data[i][2]
-        var name = name.toString()
-        var code = code.toString()
+    function hide(item)
+        {          
+        obj = document.getElementById(item);
+        obj.style.display = "none"
         }
-        // console.log(name, code, checkbox)
-        var str = '<tr><td>'
-        var res = str.concat(name, '</td><td>', code ,'</td><td><div><input type="checkbox" name="attendance" value="attendance" checked></div></td></tr>')
-        $('.familyclass').append(res)  
-    }       
-    
-    function Show_Stuff(display){
-    if (Click_Menu.style.display == "none") {
-    Click_Menu.style.display = "";
-    }
-    else
-    {
-    Click_Menu.style.display = "none";
-    }
-}
- 
-    // var display = $('<div/>').html(Click_Menu);
 
-   
--->
+    function show(item)
+        {          
+        obj = document.getElementById(item);
+        obj.style.display = "block"
 
+        var input_gender = document.getElementsByName('sex');
 
-    // function save() {
-    //     var subject = document.getElementById("subject").value;
+        if (input_gender[0].checked) 
+            {
+            value = input_gender[0].value;
+            var gender = value;
+            } 
+        else if(input_gender[1].checked) 
+            {
+            var gender = input_gender[1].value;
+            }
         
 
-    //     var all = {
-    //         subject: subject,
-            
-    //     };
-        function ShowDiv() {
-        document.getElementById("table").style.display = "";
+        // console.log(gender)
+        $.ajax({
+               type: "POST",
+               url: '/attendance/',
+               data: {
+                     post1:'post1',
+                     gender: gender,
+                     csrfmiddlewaretoken: '{{csrf_token}}',
+                      },
+        
+                success: function (response)
+                    {
+                    // console.log(response);
+                    var data=response['data'];
+                    // console.log(data)
+                    var startstr = '';
+                    for (i=0; i<data.length; i++)
+                       { 
+                       var name = data[i][0];
+                       var code = data[i][1];
+                       var name = name.toString();
+                       var code = code.toString();
+                       
+                       // console.log(name, code)
+                       var str = startstr.concat('<tr><th>Name</th><th style="width: 40px;">ID</th><th>Attendance</th></tr>');
+                       var res = str.concat('<tr name="name"><td >', name, '</td><td>', code ,'</td><td><div><input type="checkbox" name="attendance" value="attendance" checked></div></td></tr>')
+                       $('.familyclass').append(res)  
+                       }
+                    }
+                });
+      
+        }       
+    
+
+    function save()
+        {
+        
+        var all_data = [];
+        var sub = document.getElementById("subject").value; 
+        var x = document.getElementsByName("name");
+        var time = document.getElementsByName("time");
+
+        if (time[0].checked) 
+            {
+            value = time[0].value;
+            var timezon = value;
+            } 
+        else if(time[1].checked) 
+            {
+            var timezon = time[1].value;
+            }
+
+        if(timezon==undefined){ var timezon = ''}
+
+        for(var i=0;i<x.length;i++)
+           {
+         var data_dict = {};
+         data_dict['name'] = x[i].getElementsByTagName('td')[0].innerText;
+         data_dict['person_code'] =x[i].getElementsByTagName('td')[1].innerText;
+         data_dict['attendance'] = x[i].getElementsByTagName('input')[0].checked;
+         all_data.push(data_dict)
+           }
+        console.log(all_data)
+        var data = {
+              subject: sub,
+              classlist:all_data, 
+              timezone:timezon,             
+              };
+    $.ajax({
+        type: "POST",
+        url: '/attendance/',
+        data:{data:JSON.stringify(data),
+            csrfmiddlewaretoken: '{{csrf_token}}',
+            post2:'post2',} ,
+        success: function (response) {
+            var data = response['data']
+        if (data=='saved'){alert('Entries are saved')}
+            console.log(response);
+        },
+
+       });
+
+
+
         }
-    // function myFunction() {
-    //     document.getElementById("demo").innerHTML = Date();
-    //     }
-
-        // console.log(all)
-
-        // $.ajax({
-        //         type: "POST",
-        //         url: '/Attendance/',
-        //         data: {
-        //             all: all,
-        //             csrfmiddlewaretoken: '{{csrf_token}}',
-        //         },
-        //     success: function (response) {
-        //         console.log(response);
-        //     },
-        //     });
-
-// function showmem()
-//         {
-
-//             var input_gender = document.getElementsByName('sex');
-//             if (input_gender[0].checked) {
-//                 value = input_gender[0].value;
-//                 var gender = value;
-//             } 
-//             else if(input_gender[1].checked) {
-//             var gender = input_gender[1].value;
-//             }
-//             console.log(gender)
-//             $.ajax({
-//                 type: "POST",
-//                 url: '/attendance/',
-//                 data: {
-//                     gender: gender,
-//                     csrfmiddlewaretoken: '{{csrf_token}}',
-//                 },
-//             success: function (response) {
-//                 console.log(response);
-//                 var data=response['data'];
-//                 // console.log(data)
-//                 for (i=0; i<data.length; i++)
-//                    {
-//                     var name = data[i][0]
-//                     var code = data[i][1]
-//                     var name = name.toString()
-//                     var code = code.toString()
-//                     console.log(name, code)
-//                     var str = '<tr><td>'
-//                     var res = str.concat(name, '</td><td>', code, '</td></td><input type="radio" name="att" value="atten"></td></tr>')
-//                     $('.familyclass').append(res)
-//                    }
+  
+ 
 
 
-//             },
-//             });
-//         }
-
-//        function append_data_to_table(data){
-//         var tablecont= getElementsById('attntable');
-// var myStringArray = data;
-// var arrayLength = myStringArray.length;
-// for (var i = 0; i < arrayLength; i++) {
-   
-//   var temp_str='<tr><td>'++'</td><td>'++'</td><td>'++'</td><td><input type="checkbox" value="true" id='++'></td></tr>';
-//     tablecont.tbody.append(temp_str);
-//     alert(   [i]);
-//     //Do something
-// }
-//         }
 
 </script>
 </body>
-
-
-
+</html>
 {% endblock %}

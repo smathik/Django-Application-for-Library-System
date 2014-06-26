@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<html>
+<head>
+
+<body bgcolor="yellow">
+	<table  border="5" bgcolor="white" class='familyclass'>
+    </table>
+	</div><br>
+    <a href="#" onclick="javascript:subject('subject');">Classes:</a></div>
+
+
+	
+	<!-- <br><h1>Classes : <input type='button' onclick="subject()"  name='subject'></br> -->
+	<!-- <a id="#" onclick="javascript:show('show');">show</a> -->
+
+	<!-- <br><h3>Student_list:<input type ='text' id='studentlist' name='studentlist'></br> -->
+	
+	<!-- 	 -->
+
+	
+
+
+</head>
+
+
+</body>
+</html>
+
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+function subject()
+	
+	{
+
+	var input_gender = document.getElementsByName('subject');
+    
+	$.ajax({
+               type: "POST",
+               url: '/classlist/',
+                data: {
+                     // post:'POST',
+                     csrfmiddlewaretoken: '{{csrf_token}}',
+                      },
+		success : function(response)
+		{
+
+			// console.log(response);
+			var data=response['data'];
+			var startstr = '';
+            for (i=0; i<data.length; i++)
+               { 
+               var subject = data[i][0];
+               
+               var subject = subject.toString();
+               
+                       
+               // console.log(name, code)
+               var str = startstr.concat('<tr><th>subject</th>');
+               var res = str.concat('<tr>< name="subject"><td >', subject, '</td><td>')
+               $('.familyclass').append(res)  
+               }
+
+		},
+		});
+	}
+
+
+
+</script>
+
+
+
+
+
+{% endblock %}

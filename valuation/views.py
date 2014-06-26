@@ -35,51 +35,10 @@ def family(request):
 
     return render(request,'family.html')
 
-# def familydisplay(request):
-#     if request.method == 'GET':
-#         get, data, req_field , get = request.POST, {}, ['rationcard' ,'street', 'city', 'code']
-#         for i in req_field:
-#             data[i] = get['all[%s]'%i]
-#         print data
 
-#     return render(request,'familydisplay.html')
+
         
-def attendance(request):
-    if request.method == 'POST':
-        post  = request.POST,{}, ['subject','timings','attendance']
-        for i in req_field:
-            data[i] = post['all[%s]'%i]
-            print data
-        if post.has_key('gender'):
-            gender = post['gender']
-            datadump = FamilyMember.objects.filter(Gender=gender)
-            data = [[i.name, i.personcode] for i in datadump]
 
-        else:
-           datadump = FamilyMember.objects.all()
-           data = [[i.name, i.personcode] for i in datadump]
-
-
-        attendance.objects.create( subject=data['subject'],
-                                   timings=data['timings'],
-                                   attendance=data['attendance'])
-  
-        return HttpResponse(content=json.dumps({'data': data}),content_type='Application/json')
-
-    return render(request, 'attendance.html')
-
-# # subject = request.POST.get('subject')
-     # # morning = request.POST.get('morning')
-     # # evening = request.POST.get('evening')
-     # # students = request.POST.get('students')
-     # # for _id, attend in students.items():
-     #     
-     #                          morning = data['morning'], 
-     #                          evening = data['evening'], 
-     #                          member_id = data['member_id'], 
-     #                          attendance = data['attendance']   )
-    
-    
 
 
 def members(request):
@@ -92,16 +51,13 @@ def members(request):
         studen_field = ['grade', 'institution', 'standard']
         excepttion = [data[i] for i in list(set(req_field)-set(studen_field))]
 
-        dump = 'notexists' if not Family.objects.filter(ration_card=data['rationcard']) else 'notcomplete' if '' in excepttion else None             
-        print dump
+        dump = 'notcomplete' if '' in excepttion else 'notexists' if not Family.objects.filter(ration_card=data['rationcard']) else 'personcode_not_unique' if FamilyMember.objects.filter(personcode=data['personcode']) else None             
+        print 'dump >>', dump
         if dump:
-            # print '????????????????????????????'
             return HttpResponse(content=json.dumps(dump),content_type='Application/json')
         
         student_check = True if [data[i] for i in studen_field if data[i] != ''] else False
-        # print student_check
         fam = Family.objects.get(ration_card=data['rationcard']).id
-        # print data
         FamilyMember.objects.create(name = data['name'],
                                     family_id = fam,
                                     personcode = data['personcode'],
@@ -127,20 +83,87 @@ def registration(request):
 
 
 def classes(request):
-  
-
-
-
-
-
     return render(request,'classes.html')
 
 
 
-def current_datetime(request):
-    now = datetime.datetime.now()
-    return render(request, 'current_datetime.html', {'datetime': now})
+# def current_datetime(request):
+#     now = datetime.datetime.now()
+#     return render(request, 'current_datetime.html', {'datetime': now})
 
 
 
+def check(request):
+    if request.method == 'POST':
+        post = request.POST
+        personcode = post['code']
+        print '>>>>>>>>>>>>>>', personcode
+        if not FamilyMember.objects.filter(personcode=personcode):
+          data = 'notexists'
+        else:
+          family = FamilyMember.objects.get(personcode=personcode)
+          _class = Classes.objects.get(familymember_id=family.id)
+          data = _class.attendance
+        print data
+        return HttpResponse(content=json.dumps(data),content_type='Application/json')
 
+    return render(request, 'attendancecheck.html')
+
+
+
+def classlist(request):
+
+    
+    if request.method == 'POST': 
+        post = request.POST
+        datadump = Classes.objects.all()
+        data = [i.subject for i in datadump]
+        # print 'ggggggg'
+        # classlist.objects.create(subject=sub)
+        
+       
+        return HttpResponse(content=json.dumps({'data': data}),content_type='Application/json')
+
+
+    return render(request, 'classlist.html')
+
+
+def attendance(request):
+    true, null, false = True, None, False
+    if request.method == 'POST':
+        post  = request.POST
+        if post.has_key('post1'):
+            if post.has_key('gender'):
+                gender = post['gender']
+                datadump = FamilyMember.objects.filter(Gender=gender)
+                data = [[i.name, i.personcode] for i in datadump]
+
+            else:
+               datadump = FamilyMember.objects.all()
+               data = [[i.name, i.personcode] for i in datadump]
+        
+        elif post.has_key('post2'):
+            
+            try:
+              data_dict = eval(post['data'])
+              sub = data_dict['subject']
+              classlist = data_dict['classlist']
+              time = data_dict['timezone']
+            except Exception as e:
+              print 'Error>>>>',e
+
+            for i in classlist:
+              try:
+                name = i['name']
+                person_code = i['person_code']
+                attendance = i['attendance']
+                family = FamilyMember.objects.get(personcode=person_code)
+              except Exception as e:
+                print 'Error>>>>',e
+
+              Classes.objects.create(familymember_id=family.id, subject=sub, Timing=time, attendance=attendance)
+            data = 'saved'
+  
+        return HttpResponse(content=json.dumps({'data': data}),content_type='Application/json')
+
+    return render(request, 'attendance.html')

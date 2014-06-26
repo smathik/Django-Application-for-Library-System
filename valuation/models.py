@@ -1,24 +1,16 @@
 from django.db import models
 
-# Create your models here.
+
 
 
 
 class Family(models.Model):	
 	ration_card = models.CharField(max_length=50)
-	# member_details = models.ManyToManyField('Family_mem')
 	city = models.CharField(max_length=50)
 	street = models.CharField(max_length=50)
 	code = models.IntegerField(max_length=50)
 
-	# family = models.ForeignKey('Family')
-	# family_mem = models.ManyToMany('Family_mem')
-	# card_no = models.IntegerField(max_length=200)
-	# income = models.IntegerField(max_length=50)
-	# address = models.CharField(max_length=50)
-	# attendance = models.Primarykey('Attendance')
-	# address = models.ForeignKey('Address')
-	# ration_card = models.URLField()
+	
 
 
 class FamilyMember(models.Model):
@@ -29,7 +21,6 @@ class FamilyMember(models.Model):
 	Age = models.IntegerField(max_length=50)
 	qualification = models.CharField(max_length=50)
 	occupation = models.CharField(max_length=50)
-	# income = models.IntegerField(max_length=50)
 	IsStudent = models.BooleanField(default=False)
 	standard = models.CharField(max_length=50, null=True, blank=True)
 	institution = models.CharField(max_length=50, null=True, blank=True)
@@ -49,6 +40,11 @@ class Classes(models.Model):
 	Timing = models.CharField(max_length=50)
 	attendance = models.BooleanField(default=False)	
     
+
+class classlist(models.Model):
+	classname = models.CharField(max_length=50)
+	studentlist = models.CharField(max_length=50)
+	# studentlist = models.ForeignKey('attendance')
 
 
 # class Attendance(models.Model):

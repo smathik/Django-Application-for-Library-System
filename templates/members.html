@@ -78,6 +78,9 @@
         success: function (response) {
         if (response=='notexists'){alert('sorry !!! The ration ID entered is not exists')}
         if (response=='notcomplete'){alert('You have to fill all the columns')}
+        if (response=='personcode'){alert('Person Code should not be Empty !!!')}
+        if (response=='personcode_not_unique'){alert('Person Code Already Exists !!!')}
+
             console.log(response);
         },
 

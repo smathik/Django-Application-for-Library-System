@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+<html>
+<body bgcolor="yellow">
+
+
+    <h1>Enter the Person Code:</h1> <input type="text" id="personcode" name="personcode"><br><br>
+
+    <div><br><button id="check" type="check" onclick="check()">Check</button></br></div>
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+
+
+    
+
+    function check()
+        {
+        
+        var code = document.getElementById("personcode").value; 
+
+    $.ajax({
+        type: "POST",
+        url: '/check/',
+        data: {code:code,
+        csrfmiddlewaretoken: '{{csrf_token}}',},
+        success: function (response) {
+            if(response==true){alert('Person with Person Code is present')}
+            if(response==false){alert('Person with Person Code is not present')}
+            if(response=='notexists'){alert('Person Code is not exists')}
+          },
+
+       });
+
+
+
+        }
+  
+ 
+
+
+
+</script>
+</body>
+</html>
+{% endblock %}
