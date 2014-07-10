@@ -1,19 +1,22 @@
 {% extends "layout.html" %}
+
 {% block content %}
-<head>
-</head>
+
+
+
 <body bgcolor="yellow">
 {% csrf_token %}
-  <font style = "bold" color = red>Ration ID</font><input type='text' name="rationid" id='rationid'><br>
+  <div align="center">
+  <font><h4 style = "bold" color = red>Ration ID :</font><input type='text' name="rationid" id='rationid'><br></h4>
 
-   <h1>Person Name:</h1> <input type="text" id='name' name="name"><br>
-       <input type="radio" name="sex" value="male">Male<br>
+   <h4>Person Name: <input type="text" id='name' name="name"><br>
+       <input type="radio" name="sex" value="male">Male
        <input type="radio" name="sex" value="female">Female
 
-   <h1>Person code:</h1> <input type="text" id='personcode' name="personcode"><br>
-   <h1>Age:</h1> <input type="text" id="age" name="age"><br>	
-   <h1>Qualfication:</h1> <input type="text" id='qualification' name="qualification"><br>
-   <h1>Occupation:</h1> <input type="text" id='occupation' name="occupation"><br>
+   <br>Person code:<input type="text" id='personcode' name="personcode"></br>
+   Age: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="age" name="age"><br>	
+   Qualfication: &nbsp;<input type="text" id='qualification' name="qualification"><br>
+   Occupation: &nbsp;&nbsp;<input type="text" id='occupation' name="occupation"><br><h4></div>
 
 
    <button id="myButton" class="float-left submit-button" onclick="document.getElementById('optional_for_student').style.display='block';">Is Student?</button>
@@ -66,7 +69,7 @@
         grade: grade
 
     };
-    console.log(all);
+    console.log(all)
 
     $.ajax({
         type: "POST",
@@ -80,6 +83,7 @@
         if (response=='notcomplete'){alert('You have to fill all the columns')}
         if (response=='personcode'){alert('Person Code should not be Empty !!!')}
         if (response=='personcode_not_unique'){alert('Person Code Already Exists !!!')}
+        if (response=='saved'){alert('Your Entries have been Saved !!!')}
 
             console.log(response);
         },

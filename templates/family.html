@@ -8,23 +8,43 @@
 {% csrf_token %}
 
 
+<li><a button id="new" type="new" href='/family/'>NEW</button></a></li>
 
-<h1>Ration_ID: </h1><input type="text" id='rationid' name="rationid"><br><br>
-<!-- <button id="edit" type="edit">EDIT</button> -->
-<h1>Address:</h1> <br>
-<h1>Street:</h1> <input type="text" id='street' name="street"><br>
-<h1>City:</h1> <input type="text" id='city' name="city"><br>
-<h1>Zip_Code:</h1> <input type="text" id='code' name="code"><br><br>
+<li><a button id="view" type="view" href='/view/'>VIEW</button></a></li>
 
+<li><a button id="edit" type="edit" href='/familyedit/'>EDIT</button></a></li>
+
+
+<div align="center">
+
+<br>Ration_ID : </h1><input type="text" id='rationid' name="rationid"></br>
+
+
+
+
+<br>Street: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id='street' name="street"></br>
+<br>City: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id='city' name="city"></br>
+<br>Zip_Code: &nbsp;&nbsp;&nbsp;<input type="text" id='code' name="code"></br></div>
+
+<div><br><button id="edit"  type="edit" onclick="edit()">Edit</button></br></div>
+
+
+<br><input type='file' value='browse'></br>
 
 
 
 <div><br><button id="save"  type="save" onclick="save()">save</button></br></div>
+
+
+
+<!-- <a href="#" onclick="javascript:show('showhide');">Show</a>  -->
 <!-- </form> -->
 
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
+   
+ 
     function save() {
         var rationid = document.getElementById("rationid").value;
         var street = document.getElementById("street").value;
@@ -48,16 +68,12 @@
                     csrfmiddlewaretoken: '{{csrf_token}}',
                 },
 
-        // $.ajax({
-        //         type: "GET",
-        //         url: '/familydisplay/',
-        //         data: {
-        //             all: all,
-        //             csrfmiddlewaretoken: '{{csrf_token}}',
-        //         },
+       
             success: function (response) {
                 if (response=='exists'){alert('sorry !!! The ration ID entered is already exists')}
-                if (response=='notcomplete'){alert('You have to fill all the columns')}
+                else if (response=='notcomplete'){alert('You have to fill all the columns')}
+                else if (response=='saved'){alert('The Details have been saved succesfully')}
+
                 console.log(response);
             },
             });

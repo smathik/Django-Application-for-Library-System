@@ -14,6 +14,8 @@ urlpatterns = patterns('',
     url(r'^members/', members),
     url(r'^check/', check),
     url(r'^classlist/', classlist),
+    url(r'^familyedit/',familyedit),
+    url(r'^events/',events),
 
     
     # url(r'^familydisplay/', familydisplay),

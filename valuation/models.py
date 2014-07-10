@@ -9,6 +9,7 @@ class Family(models.Model):
 	city = models.CharField(max_length=50)
 	street = models.CharField(max_length=50)
 	code = models.IntegerField(max_length=50)
+	picture = models.ImageField(upload_to='gallery')
 
 	
 
@@ -46,6 +47,23 @@ class classlist(models.Model):
 	studentlist = models.CharField(max_length=50)
 	# studentlist = models.ForeignKey('attendance')
 
+
+# class events(models.model):
+# 	name = models.CharField(max_length=50)
+
+# class eventssave(models.model):
+# 	events = models.ForeignKey('events')
+# 	family = models.ForeignKey('Family')
+	
+	
+
+
+
+
+
+
+# class gallery(models.Model):
+# 	pictures = models.ManyToManyField(Picture)
 
 # class Attendance(models.Model):
 # 	date = models.DateTimeField(auto_now_add=True)

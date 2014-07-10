@@ -76,8 +76,8 @@
                        var code = code.toString();
                        
                        // console.log(name, code)
-                       var str = startstr.concat('<tr><th>Name</th><th style="width: 40px;">ID</th><th>Attendance</th></tr>');
-                       var res = str.concat('<tr name="name"><td >', name, '</td><td>', code ,'</td><td><div><input type="checkbox" name="attendance" value="attendance" checked></div></td></tr>')
+                       var str = startstr.concat('<tr><th>Name</th><th style="width: 40px;">ID</th></tr>');
+                       var res = str.concat('<tr name="name"><td >', name, '</td><td>', code ,'</td><td></td></tr>')
                        $('.familyclass').append(res)  
                        }
                     }
@@ -87,7 +87,7 @@
     
 
     function save()
-        {
+        {   
         
         var all_data = [];
         var sub = document.getElementById("subject").value; 
@@ -111,7 +111,7 @@
          var data_dict = {};
          data_dict['name'] = x[i].getElementsByTagName('td')[0].innerText;
          data_dict['person_code'] =x[i].getElementsByTagName('td')[1].innerText;
-         data_dict['attendance'] = x[i].getElementsByTagName('input')[0].checked;
+         // data_dict['attendance'] = x[i].getElementsByTagName('input')[0].checked;
          all_data.push(data_dict)
            }
         console.log(all_data)
@@ -128,13 +128,15 @@
             post2:'post2',} ,
         success: function (response) {
             var data = response['data']
-        if (data=='saved'){alert('Entries are saved')}
+            if (data=='saved'){alert('Entries are saved')}
+            if (data=='exists'){alert('The Classes have been already Saved')}
+            
             console.log(response);
         },
 
        });
 
-
+            
 
         }
   
