@@ -48,12 +48,14 @@ class classlist(models.Model):
 	# studentlist = models.ForeignKey('attendance')
 
 
-# class events(models.model):
-# 	name = models.CharField(max_length=50)
+class events(models.Model):
+	name = models.CharField(max_length=50)
 
-# class eventssave(models.model):
-# 	events = models.ForeignKey('events')
-# 	family = models.ForeignKey('Family')
+class eventssave(models.Model):
+	events = models.ForeignKey('events')
+	family = models.ForeignKey('Family')
+	date = models.DateTimeField(auto_now_add=True, blank=True)
+	
 	
 	
 

@@ -1,58 +1,66 @@
-{% extends "layout.html" %}
-{% block content %}
 
 <body bgcolor="yellow">
 <html>
 
-<!-- <br><h3>Enter the ration ID : <input type='text' id='rationid' name='rationid'></br></h3>
- -->
+<type id="rationid">
+<type id="street">
+<type id="city">
+<type id="code">
+
+
 
 <!-- <input type="image" src="../static/submit.gif" alt="Submit" onclick="Submit();" align="right" width="48" height="48"> -->
-<a href="#" onclick="subject">Classes:</a></div>
-  <table  width="1000" border="5" bgcolor="white" class='familyclass'>
-    </table>
-  </div><br>
+<div><br><a href="#" onclick="subject()">Click The link To Display the Ration Card Details !!!!!</a></br>
+  <table  align="center" width="500" border="5" bgcolor="#FFA500" class='familyclass'>
+    </table></div><br>
+  
 
-
+<!-- <form><input type="reset" value="Reset"></form> -->
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
 function subject()
   
   {
-   var input_gender = document.getElementsByName('subject');
-  // var  = document.getElementsByName('rationid');
-  // var  = document.getElementsByName('street');
-  // var  = document.getElementsByName('city');
-  // var  = document.getElementsByName('code');
+   
+  var rationid = document.getElementById("rationid").value;
+  var street = document.getElementById("street").value;
+  var city = document.getElementById("city").value;
+  var code = document.getElementById("code").value;
+
     
   $.ajax({
                type: "POST",
-               url: '/classlist/',
+               url: '/familyedit/',
                 data: {
-                     post:'POST',
+                     // post:'POST',
                      csrfmiddlewaretoken: '{{csrf_token}}',
                       },
     success : function(response)
     {
 
       console.log(response);
+
       var data=response['data'];
+      var str_head = '<th>RATION CARD</th><th>STREET</th><th>CITY</th><th>CODE</th>'
       var startstr = '';
+      var str = ''
             for (i=0; i<data.length; i++)
                { 
-               var rationid = data[i][0];
-               var street = data[i][0];
-               var city = data[i][0];
-               var code = data[i][0];
+               var rationid = data[i]['ration_card'];
+               var street = data[i]['street'];
+               var city = data[i]['city'];
+               var code = data[i]['code'];
                
-                       
-               // console.log(name, code)
-               var str = startstr.concat('<tr><th>rationid</tr></th>street<tr><th>city</tr></th><tr><th>code</tr></th>');
-               var res = str.concat('<tr rationid="rationid"><td >', rationid, '</td><td>', street ,'</td><td></td></tr>' city,'</td><td>' code,'</td><td></td></tr>')
-               // var res = str.concat('<tr name="name"><td >', name, '</td><td>', code ,'</td><td><div><input type="checkbox" name="attendance" value="attendance" checked></div></td></tr>')
-               $('.familyclass').append(res)  
+               str += '<tr><td>'+rationid+'</td><td>'+street+'</td><td>'+city+'</td><td>'+code+'</td></tr>';
+
+               // var res = str.concat('<tr>rationid="rationid"><td >', rationid, '</td><td>', street,'</td><td></td></tr>' city,'</td><td>' code,'</td><td></td></tr>')
+            
                }
+               console.log(str)
+               var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
+               console.log(html)
+               $('.familyclass').append(html)  
 
     },
     });
@@ -63,4 +71,3 @@ function subject()
 
 
 
-{% endblock %}

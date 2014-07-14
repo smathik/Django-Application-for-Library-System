@@ -1,0 +1,50 @@
+<head>
+<html>
+
+<body bgcolor="CCCCFF"></body>
+<div align="center">
+
+<br>Enter The Event Name : &nbsp;<input type="text" id="name"></br>
+
+<br>Enter Family Ration ID :<input type='text' name="rationid" id='rationid' ></br>
+
+<div align="center"> Date and Time <p id="time"></p></div>
+
+<div><br><button id="add" type="add" onclick="add()">ADD</button></br></div>
+<form><input type="reset" value="Reset"></form>
+</htmL>
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+	function add(){
+		
+
+		var ration_id = document.getElementById("rationid").value;
+		var name = document.getElementById("name").value;
+		
+		var all = {
+			name : name,
+			rationcard : ration_id,
+			time : time,
+
+		};
+
+		// console.log(all)
+
+		$.ajax({
+			type:"POST",
+			url:/Addevents/,
+			data:{
+				all:all,
+				csrfmiddlewaretoken: '{{ csrf_token }}',
+			},
+			success: function (response){
+				if (response=='saved'){alert('Your enteries have been Saved !!!!!')}
+
+				console.log(response);
+			},
+		});
+		
+
+	}
+</script>
