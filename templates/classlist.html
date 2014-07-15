@@ -4,20 +4,16 @@
 <html>
 <head>
 
-<body bgcolor="yellow">
-	<a href="#" onclick="javascript:subject('subject');">Classes:</a></div>
-	<table  width="400" border="5" bgcolor="white" class='familyclass'>
-    </table>
-	</div><br>
-   
+<body bgcolor="F0F8FF">
+	<a href="#" onclick="javascript:subject('subject');">Classes:</a>
+	<table  width="400" border="1" bgcolor="white" class='familyclass'></table></body>
+    
 
+<button type="button"> OK </button>
 
 	
-	
+<!-- <button type="button"> Save </button> -->
 
-	<br>
-	<button type="button">Save</button>
-	
 	<!-- 	 -->
 
 
@@ -59,8 +55,8 @@ function subject()
                
                        
                // console.log(name, code)
-               var str = startstr.concat('<tr><th>subject</tr></th>Select');
-               var res = str.concat('<tr>< name="subject"><td>', subject, '</td><td><input  type="checkbox" name="select" value="select"</td></tr>')
+               var str = startstr.concat('<tr><th></tr></th>Select');
+               var res = str.concat('<tr><td>', subject, '</td><td><input  type="radio" name="select" value="select"</td></tr>')
                // var res = str.concat('<tr name="name"><td >', name, '</td><td>', code ,'</td><td><div><input type="checkbox" name="attendance" value="attendance" checked></div></td></tr>')
                $('.familyclass').append(res)  
                }

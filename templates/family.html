@@ -1,18 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
 <head>
-	<title></title>
+	<title>RATIONCARD DETAILS</title>
 </head>
 
-<body bgcolor="ADD8E6">
+<body bgcolor="F0F8FF">
 {% csrf_token %}
 
 
-<li><a button id="new" type="new" href='/family/'>NEW</button></a></li>
+<a id="new" type="new" href='/family/'>NEW</button></a>
+<a id="edit" type="edit" href='/familyedit/'>VIEW</button></a>
+<a id="edit" type="edit" href='//'>EDIT</button></a>
+
 
 <!-- <li><a button id="view" type="view" href='/view/'>VIEW</button></a></li> -->
 
-<li><a button id="edit" type="edit" href='/familyedit/'>VIEW</button></a></li>
 
 
 <div align="center">

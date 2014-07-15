@@ -1,6 +1,29 @@
 {% extends "layout.html" %}
 {% block content %}
+<body bgcolor="F0F8FF"></body>
+<br>Enter The Ration ID : <input type="text" name="rationid" id="rationid"></br>
+<br><button id="search" onclick="search" value="search">Search</br></button> 
 
+
+
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+function search () {
+	var rationid = document.getElementById("rationid").value
+
+	$.ajax({
+		type:'POST',
+		url:'/display/',
+		data:{
+			rationid:rationid,
+			csrfmiddlewaretoken:'{{csrf_token}}',
+		},
+	success: function(response){
+		if(response==true){alert('Ration id exists')}
+	},
+	});
+}
 
 
 

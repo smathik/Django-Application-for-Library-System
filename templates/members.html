@@ -4,19 +4,22 @@
 
 
 
-<body bgcolor="yellow">
+<body bgcolor="F0F8FF">
 {% csrf_token %}
+
+  <li><a align="left" id="new" type="new" href='/members/'>NEW</a></li>
+  <li><a align="left" id="view" type="view" href="">VIEW</a></li>
   <div align="center">
   <font><h4 style = "bold" color = red>Ration ID :</font><input type='text' name="rationid" id='rationid'><br></h4>
 
    <h4>Person Name: <input type="text" id='name' name="name"><br>
-       <input type="radio" name="sex" value="male">Male
-       <input type="radio" name="sex" value="female">Female
+       <br><input type="radio" name="sex" value="male">Male</br>
+       <br><input type="radio" name="sex" value="female">Female</br>
 
    <br>Person code:<input type="text" id='personcode' name="personcode"></br>
-   Age: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="age" name="age"><br>	
-   Qualfication: &nbsp;<input type="text" id='qualification' name="qualification"><br>
-   Occupation: &nbsp;&nbsp;<input type="text" id='occupation' name="occupation"><br><h4></div>
+   <br>Age: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="age" name="age"></br>	
+   <br>Qualfication: &nbsp;<input type="text" id='qualification' name="qualification"></br>
+   <br>Occupation: &nbsp;&nbsp;<input type="text" id='occupation' name="occupation"></br><h4></div>
 
 
    <button id="myButton" class="float-left submit-button" onclick="document.getElementById('optional_for_student').style.display='block';">Is Student?</button>

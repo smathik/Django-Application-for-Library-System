@@ -1,31 +1,39 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>VALUATION</title>    
 
-    <strong><link color="6495ED" rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/main.css"/></strong>
-  </head>
-  <body>
-<header>
-  <div class="container" >
-    <h1 class="logo">EVALUATION APPLICATION</h1>
-    <strong><nav>
-      <ul class="menu" >
-        <li><a href='/about/'>About</a></li>
-        <li><a href='/family/'>Family</a></li>
-        <li><a href='/members/'>Member</a></li>
-        <li><a href='/attendance/'>Attendance</a></li>
-        <li><a href='/check/'>Check</a></li>
-        <li><a href='/classlist/'>Classlist </a></li>
-        <li><a href='/events'>Events</a></li>
+
+
+<html><title>VALUATION</title>
+<head><style type="text/css">
+h1 {
+    text-shadow: 5px 5px 5px #FF0000;
+    color: white;
+    font-size: 40px;
+
+}
+
+a{text-decoration: none;font-size: 20px;}
+
+  
+</style></head>
+<body>
+<div id ="header">
+<h1 style="margin-bottom:0;height:50px;background-color:#33CC33;text-align:center;">ABDULLAH - IBN - MASWOOD - QURAN - ACADEMY</h1></div>
+<div align="center" id="menu" style="background-color:66FFCC;height:550px;width:175px;float:left;"><br/><br/><br/>
+<b>Menu</b><br>
         
-      </ul>
-    </nav></strong>
-  </div>
-</header>    
-    <div class="container">
-      {% block content %}
-      {% endblock %}
-    </div>
-  </body>
+        <br><li><a href='/family/'>Family</a></li></br>
+        <br><li><a href='/members/'>Member</a></li></br>
+        <br><li><a href='/attendance/'>Attendance</a></li></br>
+        <br><li><a href='/check/'>Check</a></li></br>
+        <br><li><a href='/classlist/'>Classlist </a></li></br>
+        <br><li><a href='/events'>Events</a></li></br>
+        <br><li><a href='/about/'>About</a></li></br>
+        </div>
+        <div align="center" id="content" style="height:475px;">
+        {% block content %}
+        {% endblock %}
+        </div>
+<div id="footer"><h3 style="margin-top:0;height:20px;color:white;clear:both;background-color:#000000;text-align:center;">Copyright @ ithoughtz.com </h3></div>
+
+
+</body>
 </html>

@@ -42,30 +42,7 @@ def classes(request):
 # def current_datetime(request):
 #     now = datetime.datetime.now()
 #     return render(request, 'current_datetime.html', {'datetime': now})
-
-
-
-def check(request):
-    if request.method == 'POST':
-        post = request.POST
-        personcode = post['code']
-        print '>>>>>>>>>>>>>>', personcode
-        if not FamilyMember.objects.filter(personcode=personcode):
-          data = 'notexists'
-        else:
-          family = FamilyMember.objects.get(personcode=personcode)
-          _class = Classes.objects.get(familymember_id=family.id)
-          data = _class.attendance
-        print data
-        return HttpResponse(content=json.dumps(data),content_type='Application/json')
-
-    return render(request, 'attendancecheck.html')
-
-
-
-
-
-    return render(request, 'classlist.html')
+#     return render(request, 'classlist.html')
 
 
 def attendance(request):
@@ -263,7 +240,8 @@ def familyedit(request):
             datadump = Family.objects.all()
             # data = i.__dict__ for i in datadump
             for i in datadump:
-              data.append({'ration_card':i.ration_card,'street':i.street,'city':i.city,'code':i.code})          
+              data.append({'ration_card':i.ration_card,'street':i.street,'city':i.city,'code':i.code})
+            # data = [[i.rationcard][i.street][i.city][i.code]for i in datadump]          
 
 
             # for i in datadump:
@@ -276,3 +254,24 @@ def familyedit(request):
 
             return HttpResponse(content=json.dumps({'data': data}),content_type='Application/json')
     return render(request,'familyedit.html')
+
+
+def display(request):
+  return render(request,'display.html')
+
+
+def check(request):
+    if request.method == 'POST':
+        post = request.POST
+        personcode = post['code']
+        print '>>>>>>>>>>>>>>', personcode
+        if not FamilyMember.objects.filter(personcode=personcode):
+          data = 'notexists'
+        else:
+          family = FamilyMember.objects.get(personcode=personcode)
+          _class = Classes.objects.filter(familymember_id=family.id)[0]
+          data = _class.attendance
+        print data
+        return HttpResponse(content=json.dumps(data),content_type='Application/json')
+
+    return render(request, 'attendancecheck.html')
