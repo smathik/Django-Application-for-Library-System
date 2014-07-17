@@ -1,0 +1,92 @@
+
+<html>
+<body>
+<div><br><a href="#" onclick="subject()">Click The link To Display the Ration Card Details !!!!!</a></br>
+</body>
+
+<type id="rationid">
+<type id="personcode">
+<type id="age">
+<type id="qualification">
+<type id="occupation">
+<type id="standard">
+<type id="institution">
+<type id="grade">
+
+ <table  align="center" height="300" width="400" border="1" bgcolor="#FFA500" class='familyclass'>
+    </table></div><br>
+
+
+
+
+
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+
+function subject(){
+	// var input = document.getElementById("rationid").value;
+    var input = document.getElementById("personcode").value;
+    // var input = document.getElementById("age").value;
+    var input = document.getElementById("qualification").value;
+    var input = document.getElementById("occupation").value;
+
+    var input = document.getElementById("standard").value;
+    var input = document.getElementById("institution").value;
+    var input = document.getElementById("grade").value;
+
+    // var all = {
+    //     rationcard: rationid,
+    //     name: name,
+    //     personcode: personcode,
+    //     // gender: gender,
+    //     age: age,
+    //     qualification: qualification,
+    //     occupation: occupation,
+    //     standard: standard,
+    //     institution: institution,
+    //     grade: grade,
+
+    // };
+    // console.log(all)
+
+    $.ajax({
+    	type:'POST',
+    	url:'/memdis/',
+    	data:{
+    		// all:all,
+    		csrfmiddlewaretoken: '{{ csrf_token }}',
+    	},
+    success: function(response){
+		 var data=response['data'];
+     	 var str_head = '<th>RATION CARD</th><th>STREET</th><th>CITY</th><th>CODE</th>'
+      	 var startstr = '';
+         var str = '';
+         	for (i=0; i<data.length; i++)
+               { 
+               // var rationid = data[i]['ration_card'];
+               var personcode = data[i]['personcode'];
+               // var age = data[i]['age'];
+               var qualification = data[i]['qualification'];
+               var occupation = data[i]['occupation'];
+               var standard = data[i]['standard'];
+               var institution = data[i]['institution'];
+               var grade = data[i]['grade'];
+               
+               str += '<tr><td>'+rationid+'</td><td>'+personcode+'</td><td>'+age+'</td><td>'+qualification+'</td></td>'+occupation+'</td></td>'+standard+'</td></td>'+institution+'</td></td>'+grade+'</tr></td>';
+
+               // var res = str.concat('<tr>rationid="rationid"><td >', rationid, '</td><td>', street,'</td><td></td></tr>' city,'</td><td>' code,'</td><td></td></tr>')
+            
+               }
+               console.log(str)
+               var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
+               console.log(html)
+               $('.familyclass').append(html)  
+
+    },
+    });
+  }
+
+
+</script>
+

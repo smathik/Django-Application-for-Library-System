@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^events/',event),
     url(r'^Addevents/',Addevents),
     url(r'^display/',display),
+    url(r'^memdis/',memdis),
 
 
     

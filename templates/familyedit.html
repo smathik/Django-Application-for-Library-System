@@ -6,6 +6,7 @@
 <type id="street">
 <type id="city">
 <type id="code">
+<type id="picture">
 
 
 <!-- <input type="image" src="../static/submit.gif" alt="Submit" onclick="Submit();" align="right" width="48" height="48"> -->
@@ -14,6 +15,7 @@
   <table  align="center" height="300" width="400" border="1" bgcolor="#FFA500" class='familyclass'>
     </table></div><br>
   
+</type>
 
 <!-- <form><input type="reset" value="Reset"></form> -->
 
@@ -27,6 +29,7 @@ function subject()
   var input = document.getElementById("street").value;
   var input = document.getElementById("city").value;
   var input = document.getElementById("code").value;
+  var input = document.getElementById("picture").value;
 
     
   $.ajax({
@@ -44,7 +47,7 @@ function subject()
       var data=response['data'];
       var str_head = '<th>RATION CARD</th><th>STREET</th><th>CITY</th><th>CODE</th>'
       var startstr = '';
-      var str = ''
+      var str = '';
             for (i=0; i<data.length; i++)
                { 
                var rationid = data[i]['ration_card'];
@@ -52,7 +55,7 @@ function subject()
                var city = data[i]['city'];
                var code = data[i]['code'];
                
-               str += '<tr><td>'+rationid+'</td><td>'+street+'</td><td>'+city+'</td><td>'+code+'</td></tr>';
+               str += '<tr><td>'+rationid+'</td><td>'+street+'</td><td>'+city+'</td><td>'+code+'</td></td>'+picture+'</td></tr>';
 
                // var res = str.concat('<tr>rationid="rationid"><td >', rationid, '</td><td>', street,'</td><td></td></tr>' city,'</td><td>' code,'</td><td></td></tr>')
             

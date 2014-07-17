@@ -10,7 +10,7 @@
 
 <a id="new" type="new" href='/family/'>NEW</button></a>
 <a id="edit" type="edit" href='/familyedit/'>VIEW</button></a>
-<a id="edit" type="edit" href='//'>EDIT</button></a>
+<a id="edit" type="edit" href='/display/'>EDIT</button></a>
 
 
 <!-- <li><a button id="view" type="view" href='/view/'>VIEW</button></a></li> -->
@@ -30,12 +30,14 @@
 
 <!-- <div><br><button id="edit"  type="edit" onclick="edit()">Edit</button></br></div>
  -->
+<div align="right">
+<br><input type='file' id="picture" value='browse'></br>
 
-<br><input type='file' value='browse'></br>
 
+<br><button id="save"  type="save" onclick="save()">Save</button></br></div>
 
+<br><form><input type="reset" value="Reset"></br></div></form>
 
-<div><br><button id="save"  type="save" onclick="save()">save</button></br></div>
 
 
 
@@ -52,12 +54,14 @@
         var street = document.getElementById("street").value;
         var city = document.getElementById("city").value;
         var code = document.getElementById("code").value;
+        var picture = document.getElementById("picture").value;
 
         var all = {
             rationcard: rationid,
             street: street,
             city: city,
             code: code,
+            picture: picture,
         };
 
         console.log(all)
@@ -67,6 +71,7 @@
                 url: '/family/',
                 data: {
                     all: all,
+                    all:JSON.stringify(all),
                     csrfmiddlewaretoken: '{{csrf_token}}',
                 },
 

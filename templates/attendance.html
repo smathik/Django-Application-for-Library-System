@@ -127,9 +127,9 @@
             csrfmiddlewaretoken: '{{csrf_token}}',
             post2:'post2',} ,
         success: function (response) {
-            var data = response['data']
-            if (data=='saved'){alert('Entries are saved')}
-            if (data=='exists'){alert('The Classes have been already Saved')}
+            // var data = response['data']
+            if (response=='saved'){alert('Entries are saved')}
+            if (response=='exists'){alert('The Classes have been already Saved')}
             
             console.log(response);
         },

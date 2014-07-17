@@ -44,6 +44,39 @@ def classes(request):
 #     return render(request, 'current_datetime.html', {'datetime': now})
 #     return render(request, 'classlist.html')
 
+def display(request):
+        
+  if request.method == 'POST':
+      post = request.POST
+      ration_card = post['rationid']
+     
+      if post.has_key('post1'):
+          try:
+            obj = Family.objects.get(ration_card=ration_card)
+          except Exception as e:
+            print e
+         
+          obj.street = post['street']
+          obj.city = post['city']
+          obj.code = post['code']
+          obj.save()
+          data = 'saved'
+                
+        
+      
+      else:
+          if not Family.objects.filter(ration_card=ration_card):
+              data = 'none'
+          else:
+              family = Family.objects.get(ration_card=ration_card)
+              data = {'ration_card': family.ration_card, 'city': family.city, 'street':family.street, 'code': family.code}
+              print data    
+      
+      return HttpResponse(content=json.dumps(data),content_type='Application/json')
+
+  return render(request,'display.html')
+
+
 
 def attendance(request):
     true, null, false = True, None, False
@@ -103,7 +136,7 @@ def attendance(request):
 def family(request):
 
       if request.method == 'POST':
-        post, data, req_field  = request.POST, {}, ['rationcard' ,'street', 'city', 'code']
+        post, data, req_field  = request.POST, {}, ['rationcard' ,'street', 'city', 'code','picture']
         for i in req_field:
             data[i] = post['all[%s]'%i]
             print data
@@ -122,7 +155,8 @@ def family(request):
         Family.objects.create( ration_card=data['rationcard'], 
                                street=data['street'],
                                city=data['city'],
-                               code=data['code'])
+                               code=data['code'],
+                               picture=data['picture'])
 
         dump = 'saved'
         return HttpResponse(content=json.dumps(dump),content_type='Application/json')
@@ -201,7 +235,7 @@ def members(request):
                                     family_id = fam,
                                     personcode = data['personcode'],
                                     Gender = data['gender'],
-                                    Age = data['age'],
+                                    age = data['age'],
                                     qualification = data['qualification'],
                                     occupation = data['occupation'],
                                     IsStudent = student_check,
@@ -218,7 +252,7 @@ def members(request):
 def event(request):
     if request.method == 'POST':
       post, data, req_field = request.POST, {}, ['name']
-      for i in req_field:
+      for i in req_field: 
         data[i] = post['all[%s]'%i]
         print data
       dump = 'saved'
@@ -230,6 +264,16 @@ def event(request):
     return render(request,'events.html')
 
 
+def memdis(request):
+    data = []
+    temp = {}
+    if request.method == 'POST':
+       post = request.POST
+       datadump = FamilyMember.objects.all()
+       for i in datadump:
+        data.append({'personcode':i.personcode,'qualification':i.qualification,'occupation':i.occupation,'standard':i.standard,'institution':i.institution,'grade':i.grade})
+
+    return render(request, 'memdis.html')
 
 
 def familyedit(request):
@@ -240,7 +284,7 @@ def familyedit(request):
             datadump = Family.objects.all()
             # data = i.__dict__ for i in datadump
             for i in datadump:
-              data.append({'ration_card':i.ration_card,'street':i.street,'city':i.city,'code':i.code})
+              data.append({'ration_card':i.ration_card,'street':i.street,'city':i.city,'code':i.code,'picture':i.picture})
             # data = [[i.rationcard][i.street][i.city][i.code]for i in datadump]          
 
 
@@ -256,8 +300,6 @@ def familyedit(request):
     return render(request,'familyedit.html')
 
 
-def display(request):
-  return render(request,'display.html')
 
 
 def check(request):
@@ -266,7 +308,7 @@ def check(request):
         personcode = post['code']
         print '>>>>>>>>>>>>>>', personcode
         if not FamilyMember.objects.filter(personcode=personcode):
-          data = 'notexists'
+          data = 'notexists' 
         else:
           family = FamilyMember.objects.get(personcode=personcode)
           _class = Classes.objects.filter(familymember_id=family.id)[0]
@@ -275,3 +317,4 @@ def check(request):
         return HttpResponse(content=json.dumps(data),content_type='Application/json')
 
     return render(request, 'attendancecheck.html')
+

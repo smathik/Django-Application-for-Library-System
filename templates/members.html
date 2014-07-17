@@ -2,13 +2,16 @@
 
 {% block content %}
 
-
-
+<html>
+<form>
 <body bgcolor="F0F8FF">
 {% csrf_token %}
 
-  <li><a align="left" id="new" type="new" href='/members/'>NEW</a></li>
-  <li><a align="left" id="view" type="view" href="">VIEW</a></li>
+  <a id="new" type="new" href='/members/'>NEW</button></a>
+  <a id="edit" type="edit" href='/memdis/'>VIEW</button></a>
+  <a id="edit" type="edit" href='/display/'>EDIT</button></a>
+
+
   <div align="center">
   <font><h4 style = "bold" color = red>Ration ID :</font><input type='text' name="rationid" id='rationid'><br></h4>
 
@@ -31,8 +34,10 @@
 
     <div><br><button id="add" type="add" onclick="add()">Save</button></br></div>
 
-    <form><input type="reset" value="Reset"></form>
-    
+    <input type="reset" value="Reset"> 
+</form>
+</html>
+
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">

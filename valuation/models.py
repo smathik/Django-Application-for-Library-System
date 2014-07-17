@@ -9,7 +9,7 @@ class Family(models.Model):
 	city = models.CharField(max_length=50)
 	street = models.CharField(max_length=50)
 	code = models.IntegerField(max_length=50)
-	picture = models.ImageField(upload_to='gallery')
+	picture = models.ImageField(upload_to='/home/smathik/family/gallery')
 
 	
 

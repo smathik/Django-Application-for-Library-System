@@ -1,16 +1,39 @@
 {% extends "layout.html" %}
 {% block content %}
-<body bgcolor="F0F8FF"></body>
+<html>
+<body bgcolor="F0F8FF">
 <br>Enter The Ration ID : <input type="text" name="rationid" id="rationid"></br>
-<br><button id="search" onclick="search" value="search">Search</br></button> 
+
+<div><br><button type="search" id="search" onclick="search();">Search</input></div></button>
+
+<!-- <br> : <input type="text" name="rationid" id="rationid"></br> -->
 
 
 
+<br>Street : <input type="text" name="street" id="street"></br>
+<br>City : <input type="text" name="city" id="city"></br>
+<br>Code : <input type="text" name="code" id="code"></br>
+
+
+
+
+
+<div><br><button id="save"  type="save" onclick="save()">Update</button></br></div>
+
+
+
+</html>
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
-function search () {
-	var rationid = document.getElementById("rationid").value
+
+
+
+function search(){
+
+	var rationid = document.getElementById("rationid").value;
+
+	
 
 	$.ajax({
 		type:'POST',
@@ -19,12 +42,55 @@ function search () {
 			rationid:rationid,
 			csrfmiddlewaretoken:'{{csrf_token}}',
 		},
-	success: function(response){
-		if(response==true){alert('Ration id exists')}
-	},
+	success : function(response)
+    {
+	console.log(response);
+	// response.style.display = "none";
+	document.getElementById('code').value=response.code;
+	document.getElementById('street').value=response.street;
+	document.getElementById('city').value=response.city;
+	if(response=='none'){alert('RATION ID DOES NOT EXISTS !!!!!!!!!')}
+	}
 	});
 }
 
+	function save(){
+	 	var rationid = document.getElementById("rationid").value;
+        var street = document.getElementById("street").value;
+        var city = document.getElementById("city").value;
+        var code = document.getElementById("code").value;
 
+   // var all = {
+   //          rationid: rationid,
+   //          street: street,
+   //          city: city,
+   //          code: code,
+   //          post1:'post1'
+   //      };
+	
+	// console.log(all)
 
+	$.ajax({
+                type: "POST",
+                url: '/display/',
+                data: {
+			            rationid: rationid,
+			            street: street,
+			            city: city,
+			            code: code,
+			            post1:'post1',                  
+			            csrfmiddlewaretoken: '{{csrf_token}}',
+                      },
+	success:function(response){
+		if(response=='saved'){alert('The Ration Card have been Updated')}
+		console.log(response);
+	},
+
+	});
+}
+</script>
+</body>
 {% endblock %}
+
+
+
