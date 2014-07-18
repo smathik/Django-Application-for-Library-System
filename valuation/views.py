@@ -271,8 +271,9 @@ def memdis(request):
        post = request.POST
        datadump = FamilyMember.objects.all()
        for i in datadump:
-        data.append({'personcode':i.personcode,'qualification':i.qualification,'occupation':i.occupation,'standard':i.standard,'institution':i.institution,'grade':i.grade})
-
+          data.append({'name':i.name,'Age':i.Age,'Gender':i.Gender,'personcode':i.personcode,'qualification':i.qualification,'occupation':i.occupation,'standard':i.standard,'institution':i.institution,'grade':i.grade})
+          print data
+       return HttpResponse(content=json.dumps(({'data': data})),content_type='Application/json')
     return render(request, 'memdis.html')
 
 
@@ -284,7 +285,7 @@ def familyedit(request):
             datadump = Family.objects.all()
             # data = i.__dict__ for i in datadump
             for i in datadump:
-              data.append({'ration_card':i.ration_card,'street':i.street,'city':i.city,'code':i.code,'picture':i.picture})
+              data.append({'ration_card':i.ration_card,'street':i.street,'city':i.city,'code':i.code})
             # data = [[i.rationcard][i.street][i.city][i.code]for i in datadump]          
 
 

@@ -1,10 +1,8 @@
 
 <html>
 <body>
-<div><br><a href="#" onclick="subject()">Click The link To Display the Ration Card Details !!!!!</a></br>
-</body>
 
-<type id="rationid">
+<type id="name">
 <type id="personcode">
 <type id="age">
 <type id="qualification">
@@ -13,11 +11,11 @@
 <type id="institution">
 <type id="grade">
 
- <table  align="center" height="300" width="400" border="1" bgcolor="#FFA500" class='familyclass'>
+<div><br><a href="#" onclick="subject()">Click The link To Display the  Details !!!!!</a></br>
+  <table  align="center" height="300" width="1000" border="1" bgcolor="#FFA500" class='familyclass'>
     </table></div><br>
 
-
-
+</body>
 
 
 
@@ -25,22 +23,21 @@
 <script type="text/javascript">
 
 function subject(){
-	// var input = document.getElementById("rationid").value;
+	var input = document.getElementById("name").value;
     var input = document.getElementById("personcode").value;
-    // var input = document.getElementById("age").value;
+    var input = document.getElementById("age").value;
     var input = document.getElementById("qualification").value;
     var input = document.getElementById("occupation").value;
-
     var input = document.getElementById("standard").value;
     var input = document.getElementById("institution").value;
     var input = document.getElementById("grade").value;
 
     // var all = {
-    //     rationcard: rationid,
+    //     // rationcard: rationid,
     //     name: name,
     //     personcode: personcode,
     //     // gender: gender,
-    //     age: age,
+    //     // age: age,
     //     qualification: qualification,
     //     occupation: occupation,
     //     standard: standard,
@@ -48,7 +45,7 @@ function subject(){
     //     grade: grade,
 
     // };
-    // console.log(all)
+    // console.log()
 
     $.ajax({
     	type:'POST',
@@ -59,26 +56,28 @@ function subject(){
     	},
     success: function(response){
 		 var data=response['data'];
-     	 var str_head = '<th>RATION CARD</th><th>STREET</th><th>CITY</th><th>CODE</th>'
+     	 var str_head = '<th> NAME </th><th> AGE </th><th> GENDER </th><th> PERSONCODE </th><th> QUALIFICATION </th><th> OCCUPATION </th><th> STANDARD </th><th> INSTITUTION </th><th> GRADE </th>'
       	 var startstr = '';
          var str = '';
+         console.log(data)
          	for (i=0; i<data.length; i++)
                { 
-               // var rationid = data[i]['ration_card'];
+               var name = data[i]['name'];
                var personcode = data[i]['personcode'];
-               // var age = data[i]['age'];
+               var Age = data[i]['Age'];
+               var Gender = data[i]['Gender'];
                var qualification = data[i]['qualification'];
                var occupation = data[i]['occupation'];
                var standard = data[i]['standard'];
                var institution = data[i]['institution'];
                var grade = data[i]['grade'];
                
-               str += '<tr><td>'+rationid+'</td><td>'+personcode+'</td><td>'+age+'</td><td>'+qualification+'</td></td>'+occupation+'</td></td>'+standard+'</td></td>'+institution+'</td></td>'+grade+'</tr></td>';
+               str += '<tr><td>'+name+'</td><td>'+Age+'</td><td>'+Gender+'</td><td>'+personcode+'</td><td>'+qualification+'</td><td>'+occupation+'</td><td>'+standard+'</td><td>'+institution+'</td><td>'+grade+'</td></tr>';
 
-               // var res = str.concat('<tr>rationid="rationid"><td >', rationid, '</td><td>', street,'</td><td></td></tr>' city,'</td><td>' code,'</td><td></td></tr>')
+               
             
                }
-               console.log(str)
+
                var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
                console.log(html)
                $('.familyclass').append(html)  

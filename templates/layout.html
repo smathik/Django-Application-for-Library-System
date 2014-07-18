@@ -9,22 +9,76 @@ h1 {
     font-size: 40px;
 
 }
+.menu
+{
+    height: 25px;
+    background-color: #111111;
+}
+
+.menu a 
+{
+    color : gray;
+    text-decoration : none;    
+}
+
+.menu a:hover
+{
+    color : white;
+    text-decoration : none;    
+}
+
+.list
+{
+    list-style-type : none;
+    padding:0;
+}
+
+.item
+{
+    position     : relative;
+    display      : inline-block;
+    vertical-align : top;
+    width        : 150px;   
+}
+
+.item>.list
+{
+    display : none;
+    background-color : #222222;
+}
+
+.item:hover>.list
+{
+    display : block;    
+}
 
 a{text-decoration: none;font-size: 20px;}
-
   
 </style></head>
 <body>
 <div id ="header">
 <h1 style="margin-bottom:0;height:50px;background-color:#33CC33;text-align:center;">ABDULLAH - IBN - MASWOOD - QURAN - ACADEMY</h1></div>
 <div align="center" id="menu" style="background-color:66FFCC;height:550px;width:175px;float:left;"><br/><br/><br/>
-<b>Menu</b><br>
-        
-        <br><li><a href='/family/'>Family</a></li></br>
-        <br><li><a href='/members/'>Member</a></li></br>
-        <br><li><a href='/attendance/'>Attendance</a></li></br>
+<b>MAIN MENU</b><br>
+        <br><li class="item"><a href='/family/'>Family</a></br>
+            <ul class="list">
+                <li class="item"><a href="/family/"> --  New </a></li>
+                <li class="item"><a href="/display/"> -- Edit </a></li>
+                <li class="item"><a href="/familyedit/"> -- Display </a></li>
+            </ul>
+            </li>
+        </ul></br>
+        <br><li class="item"><a href='/members/'>Members</a></br>
+            <ul class="list">
+                <li class="item"><a href="/members/"> -- New</a></li>
+               <!--  <li class="item"><a href="/display/">Edit</a></li> -->
+                <li class="item"><a href="/memdis/"> -- Display</a></li>
+            </ul>
+            </li>
+        </ul></br>
+        <br><li><a href='/attendance/'>Class Name</a></li></br>
         <br><li><a href='/check/'>Check</a></li></br>
-        <br><li><a href='/classlist/'>Classlist </a></li></br>
+        <br><li><a href='/classlist/'>Attendance </a></li></br>
         <br><li><a href='/events'>Events</a></li></br>
         <br><li><a href='/about/'>About</a></li></br>
         </div>
