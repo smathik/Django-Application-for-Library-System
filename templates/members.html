@@ -20,7 +20,7 @@
        <br><input type="radio" name="sex" value="female">Female</br>
 
    <br>Person code:<input type="text" id='personcode' name="personcode"></br>
-   <br>Age: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="age" name="age"></br>	
+   <br>Age: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="age" name="age"></br> 
    <br>Qualfication: &nbsp;<input type="text" id='qualification' name="qualification"></br>
    <br>Occupation: &nbsp;&nbsp;<input type="text" id='occupation' name="occupation"></br><h4></div>
 
@@ -29,7 +29,7 @@
    <div id="optional_for_student" style="display:none;">
       <h5>Standard: </h5><input type="text" id='standard' name="Standard"><br><br>
       <h5>Institution: </h5><input type="text" id='institution' name="Institution"><br><br>
-      <h5>Grade: </h5	><input type="text" id='grade' name="Grade"><br><br></div>
+      <h5>Grade: </h5 ><input type="text" id='grade' name="Grade"><br><br></div>
 
 
     <div><br><button id="add" type="add" onclick="add()">Save</button></br></div>
@@ -42,7 +42,7 @@
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
   function add() {
-	
+
     // console.log(rationid.value)
 
     var name = document.getElementById("name").value;

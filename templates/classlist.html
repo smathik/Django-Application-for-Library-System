@@ -5,19 +5,21 @@
 <head>
 
 <body bgcolor="F0F8FF">
-	<a href="#" onclick="javascript:subject('subject');">Classes:</a>
-	<table  width="400" border="1" bgcolor="white" class='familyclass'></table></body>
+
+<form>
+<a href="#" onclick="javascript:subject('subject');">Classes:</a>
+<select id="selectElementId"></select>	
+</body>
+</html>
+
+	
+
     
 
 <button type="button"> OK </button>
 
 	
 <!-- <button type="button"> Save </button> -->
-
-	<!-- 	 -->
-
-
-
 
 </head>
 
@@ -28,38 +30,35 @@
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
-function subject()
-	
-	{
 
-	var input_gender = document.getElementsByName('subject');
+		function subject()
+	
+		{
+
+		var input_gender = document.getElementsByName('subject');
+
     
-	$.ajax({
+		$.ajax({
                type: "POST",
                url: '/classlist/',
                 data: {
                      // post:'POST',
                      csrfmiddlewaretoken: '{{csrf_token}}',
                       },
-		success : function(response)
+	success : function(response)
 		{
 
 			console.log(response);
-			var data=response['data'];
-			var startstr = '';
-            for (i=0; i<data.length; i++)
-               { 
-               var subject = data[i][0];
-               
-               var subject = subject.toString();
-               
-                       
-               // console.log(name, code)
-               var str = startstr.concat('<tr><th></tr></th>Select');
-               var res = str.concat('<tr><td>', subject, '</td><td><input  type="radio" name="select" value="select"</td></tr>')
-               // var res = str.concat('<tr name="name"><td >', name, '</td><td>', code ,'</td><td><div><input type="checkbox" name="attendance" value="attendance" checked></div></td></tr>')
-               $('.familyclass').append(res)  
-               }
+			var data = response['data'];
+			console.log(data)
+			select = document.getElementById('selectElementId');
+
+			for (var i = 0; i<=data.length; i++){
+    			var opt = document.createElement('option');
+    			opt.value = data[i];
+    			opt.innerHTML = data[i];
+    			select.appendChild(opt);
+				}
 
 		},
 		});

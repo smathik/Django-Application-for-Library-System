@@ -39,13 +39,14 @@ class Classes(models.Model):
 	familymember = models.ForeignKey('FamilyMember')
 	subject = models.CharField(max_length=50)
 	Timing = models.CharField(max_length=50)
-	attendance = models.BooleanField(default=False)	
+	
     
 
 class classlist(models.Model):
 	classname = models.CharField(max_length=50)
 	studentlist = models.CharField(max_length=50)
-	# studentlist = models.ForeignKey('attendance')
+	attendance = models.BooleanField(default=False)	
+	
 
 
 class events(models.Model):

@@ -181,6 +181,7 @@ def classlist(request):
         post = request.POST
         datadump = Classes.objects.all()
         data = [[i.subject] for i in datadump]
+        
         # print 'ggggggg'
         # classlist.objects.create(subject=sub)
         
