@@ -26,26 +26,34 @@ class FamilyMember(models.Model):
 	standard = models.CharField(max_length=50, null=True, blank=True)
 	institution = models.CharField(max_length=50, null=True, blank=True)
 	grade=models.CharField(max_length=50, null=True, blank=True)
+	classname = models.ForeignKey('Classes')
+	attendance = models.BooleanField(default=True)
+
 
 
 # class StudentDetails(models.Model):
 # 	# student = models.OneToOne('IsStudent')
 	# standard = models.CharField(max_length=50)
-	# institution = models.CharField(max_length=50)
+	# institution = models.CharField(max_length=50) 
 	# grade=models.CharField(max_length=50)
 
 
 class Classes(models.Model):
-	familymember = models.ForeignKey('FamilyMember')
+	# familymember = models.ForeignKey('FamilyMember')
 	subject = models.CharField(max_length=50)
 	Timing = models.CharField(max_length=50)
+	
+
+class new(models.Model):
+	name = models.CharField(max_length=250)
 	
     
 
 class classlist(models.Model):
+	classname = models.ForeignKey('Classes')
 	classname = models.CharField(max_length=50)
-	studentlist = models.CharField(max_length=50)
-	attendance = models.BooleanField(default=False)	
+	attendance = models.BooleanField(default=False)
+			
 	
 
 

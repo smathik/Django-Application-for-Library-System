@@ -9,15 +9,18 @@
 <form>
 <a href="#" onclick="javascript:subject('subject');">Classes:</a>
 <select id="selectElementId"></select>	
+<id="name">
+<div><button id="save" type="save" onclick="savee()">Save</button></div>
 </body>
 </html>
+
 
 	
 
     
 
-<button type="button"> OK </button>
-
+<!-- <button type="button" onclick="ok"> OK </button>
+ -->
 	
 <!-- <button type="button"> Save </button> -->
 
@@ -30,12 +33,25 @@
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
+		// function ok(){
+		// 	var input_gender = document.getElementById('name')
+
+		// 	$.ajax({
+  //              type: "POST",
+  //              url: '/classlist/',
+  //               data: {
+  //                    post1:'post1',
+  //                    csrfmiddlewaretoken: '{{csrf_token}}',
+  //                     },
+
+		// }
 
 		function subject()
 	
 		{
 
 		var input_gender = document.getElementsByName('subject');
+		var input_gender = document.getElementsByName('name');
 
     
 		$.ajax({
@@ -62,10 +78,33 @@
 
 		},
 		});
+
+            
+
+        }
+
+
+
+function savee(){
+		var e = document.getElementById("selectElementId");
+		var strUser = e.options[e.selectedIndex].value;
+		$.ajax({
+
+               type: "POST",
+               url: '/get_details/',
+               data: {
+               		 student_list:strUser,
+                     csrfmiddlewaretoken: '{{csrf_token}}',
+                      },
+
+                success: function (response)
+                    {
+                    	console.log(response)
+				 },
+
+      		 });
+
 	}
-
-
-
 </script>
 
 

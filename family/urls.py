@@ -19,6 +19,11 @@ urlpatterns = patterns('',
     url(r'^Addevents/',Addevents),
     url(r'^display/',display),
     url(r'^memdis/',memdis),
+    url(r'^get_details/',new_get),
+    url(r'^new/',new),
+
+
+
 
 
     

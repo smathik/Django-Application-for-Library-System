@@ -53,7 +53,7 @@
             }
         
 
-        // console.log(gender)
+        console.log(gender)
         $.ajax({
                type: "POST",
                url: '/attendance/',
@@ -65,9 +65,8 @@
         
                 success: function (response)
                     {
-                    // console.log(response);
+                    console.log(response)
                     var data=response['data'];
-                    // console.log(data)
                     var startstr = '';
                     for (i=0; i<data.length; i++)
                        { 
@@ -77,8 +76,8 @@
                        var code = code.toString();
                        
                        // console.log(name, code)
-                       var str = startstr.concat('<tr><th>Name</th><th style="width: 40px;">ID</th></tr>');
-                       var res = str.concat('<tr name="name"><td >', name, '</td><td>', code ,'</td><td></td></tr>')
+                       var str = startstr.concat('<tr><th>Name</th><th style="width: 40px;"> ID <th>Select</th>');
+                       var res = str.concat('<tr name="name"><td >', name, '</td><td>', code ,'</td><td><div><input type="checkbox" name="attendance" value="attendance"></div>');
                        $('.familyclass').append(res)  
                        }
                     }
@@ -110,10 +109,13 @@
         for(var i=0;i<x.length;i++)
            {
          var data_dict = {};
+         if(x[i].getElementsByTagName('input')[0].checked == true)
+         {
          data_dict['name'] = x[i].getElementsByTagName('td')[0].innerText;
          data_dict['person_code'] =x[i].getElementsByTagName('td')[1].innerText;
          // data_dict['attendance'] = x[i].getElementsByTagName('input')[0].checked;
          all_data.push(data_dict)
+     }x 
            }
         console.log(all_data)
         var data = {
@@ -128,11 +130,12 @@
             csrfmiddlewaretoken: '{{csrf_token}}',
             post2:'post2',} ,
         success: function (response) {
-            // var data = response['data']
-            if (response=='saved'){alert('Entries are saved')}
-            if (response=='exists'){alert('The Classes have been already Saved')}
+            var data = response['data']
+            if (data=='notexists'){alert('Fill All The Columns !!!!')}
+            if (data=='saved'){alert('Entries Have Been Saved ! ! !')}
+            if (data=='exists'){alert('The Class Name have been already Saved !!')}
             
-            console.log(response);
+            // console.log(response);
         },
 
        });

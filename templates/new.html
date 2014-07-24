@@ -1,0 +1,42 @@
+<html>
+<body>
+
+<form>
+
+<div><button id="save" type="save" onclick="savee()">Save</button></div>
+
+<div id="student_list"></div>
+
+</form>
+</body>
+</html>
+
+
+
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+
+function savee(){
+	var student_list = document.getElementById('student_list');
+	
+	$.ajax({
+
+               type: "POST",
+               url: '/get_details/',
+               data: {
+               		 student_list:student_list,
+                     csrfmiddlewaretoken: '{{csrf_token}}',
+                      },
+
+                success: function (response)
+                    {
+                    	console.log(response)
+				 },
+
+      		 });
+
+            
+
+        }
+</script>
