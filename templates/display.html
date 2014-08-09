@@ -125,7 +125,7 @@ function search(){
   // alert('sss')
   $.ajax({
                 type: "POST",
-                url: '/ID_delete/',
+                url: '/DeleteFamily/',
                 data: {
                   		rationid: rationid,
 			            street: street,
@@ -134,10 +134,8 @@ function search(){
                   		csrfmiddlewaretoken: '{{csrf_token}}',
                       },
   success:function(response){
-  	alert(response)
-  	console.log(response);
-    // if(response == 'deleted'){alert('Ration_ID Details have been deleted')}
-    // else{alert('Ration_ID doest not Exists ! !')}
+    if(response == 'success'){alert('Ration_ID Details have been deleted')}
+    else if (response == 'none'){alert('Ration_ID doest not Exists !!')}
    
   },
 

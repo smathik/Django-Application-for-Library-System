@@ -31,6 +31,7 @@ urlpatterns = patterns('',
     url(r'^saveAttendance/', saveAttendance),
     url(r'^ListAllStudents/', ListAllStudents),
     url(r'^DisplayEventFamily/', DisplayEventFamily),
+    url(r'^DeleteFamily/', DeleteFamily),
 
 
     url(r'^admin/', include(admin.site.urls)),

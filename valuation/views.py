@@ -75,6 +75,20 @@ def familyedit(request):
             return HttpResponse(content=json.dumps({'data': data}),content_type='Application/json')
     return render(request,'familyedit.html')
 
+
+@login_required
+def DeleteFamily(request):
+  if request.method == 'POST':
+      post = request.POST
+      ration_card = post['rationid']
+      if not Family.objects.filter(ration_card=ration_card):
+          data = 'none'
+      else:
+          obj = Family.objects.get(ration_card=ration_card)
+          obj.delete()
+          data = 'success'            
+      return HttpResponse(content=json.dumps(data),content_type='Application/json')
+
 @login_required
 def memdis(request):
     data = []
@@ -240,10 +254,10 @@ def addFamilyToEvent(request):
       family = Family.objects.filter(ration_card=post['rationid'])
       if not family:
           response = 'family'
-      elif EventData.objects.filter(events=event, family=family[0]):
+      elif EventData.objects.filter(event=event, family=family[0]):
           response = 'exists'
       else:
-          EventData.objects.create(events=event, family=family[0])
+          EventData.objects.create(evens=event, family=family[0])
           response = 'success'
       return HttpResponse(content=json.dumps(response),content_type='Application/json')
 
