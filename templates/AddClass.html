@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block content %}
+<html>
+<body bgcolor="F0F8FF">
+
+    <br>Class name:</h1> <input type="text" id="subject" name="subject">
+    <br><br><br><table  align="center" bgcolor="#FFA500" class='familyclass'></table><br>
+    <div><button id="save" type="save" onclick="display()">Display</button></div><br>
+    <div><button id="save" type="save" onclick="save()">Save</button></div>
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript"> 
+
+function display(){
+    $.ajax({
+           type: "POST",
+           url: '/getMembers/',
+           data: {
+                 csrfmiddlewaretoken: '{{csrf_token}}',
+                 },
+            success: function (response)
+                {   
+                var len = response.length;                           
+                var str_head = '<th>NAME</th><th>ADD</th>';
+                var startstr = '';
+                var str = '';  
+                $('.familyclass').empty();                 
+                for (i=0; i<len; i++)
+                { 
+                var data = response[i];
+                str += '<tr name="student"><td>'+data['name']+' '+data['personcode']+'</td><td><div><input type="checkbox" name="attendance" value="'+data['name']+' '+data['personcode']+'"></div></td></tr>';           
+                }
+            var html = '<tr>'+str_head +'</tr>'+str
+            $('.familyclass').append(html); 
+            },
+       });
+  }
+
+  function save(){
+    var classname = document.getElementById("subject").value; 
+    var students = document.getElementsByName('student');
+    var all_data = [];
+    for(var i=0;i<students.length;i++)
+       {
+        var item = students[i] 
+        if(item.getElementsByTagName('input')[0].checked == true)
+            {
+             all_data.push(item.getElementsByTagName('td')[0].innerText);
+            }
+        }
+    // if (all_data.length == 0){alert('select some students !')}
+    // else if (classname == ''){alert('provide the Clas to which the students are saved')}
+    if (all_data.length !=0 && classname != '') {
+        var DATA = {
+        classname: classname,
+        studentData: all_data
+        }
+
+       $.ajax({
+            type : 'POST',
+            url : '/saveStudentData/',
+            data:{
+                    data: JSON.stringify(DATA),
+              csrfmiddlewaretoken: '{{csrf_token}}',
+              },
+             success: function(response){
+                if(response == 'success'){
+                    alert('Successfully Added to '+classname);$('.familyclass').empty();
+                    }
+                else if(response == 'exists'){alert('Class Already Exists')}
+                },
+
+            });
+        }       
+    }
+
+  
+</script>
+</body>
+</html>
+{% endblock %}

@@ -3,6 +3,7 @@
 {% csrf_token %}
 
 <html>
+<p><h2 align="left">Events --> Add_New></p></h2>
 <style type="text/css">
 b{text-align: center;font-size: 20px;}	
 </style>
@@ -11,11 +12,10 @@ b{text-align: center;font-size: 20px;}
 <div align="center">
 <b><br><br>Event Name : <input type = "text" id = "name" name = "name"></b></br></br>
 
-<div><br><button id="save"  type="save" onclick="save()">save</button></br></div>
+<div><br><button id="save"  type="save" onclick="save()">Save</button></br></div>
 
-<br><li><a href='/Addevents/'>Click The Link To Add Families</a><li></br>
 
-<form><input type="reset" value="Reset"></form>
+
 
 
 </body>
@@ -28,20 +28,17 @@ b{text-align: center;font-size: 20px;}
 
 function save() {
 	var name = document.getElementById("name").value;
-    var all={
-		name : name,
-	};
-
 	$.ajax({
 		type: "POST",
-		url: /events/,
+		url: /AddEvent/,
 		data: {
-			all: all,
+			eventName: name,
 			csrfmiddlewaretoken: '{{csrf_token}}',
 		},
 
 		success : function(response){
-			if (response=='saved'){alert('The Details have been saved successfully')}
+			if (response=='success'){alert('New Event is Created successfully')}
+			else if (response == 'exists'){alert('Event Already Exists')}
 			console.log(response);
 		},
 	});

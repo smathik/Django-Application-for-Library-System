@@ -1,7 +1,13 @@
-
+{% extends "layout.html" %}
+{% block content %}
 <html>
 <body>
 
+
+
+<p><h2 align="left">Family_Members --> Display ></p></h2>
+
+<body bgcolor="#f4f4f4">
 <type id="name">
 <type id="personcode">
 <type id="age">
@@ -11,8 +17,10 @@
 <type id="institution">
 <type id="grade">
 
-<div><br><a href="#" onclick="subject()">Click The link To Display the  Details !!!!!</a></br>
-  <table  align="center" height="300" width="1000" border="1" bgcolor="#FFA500" class='familyclass'>
+Ration ID :<input type="ration_card" id="ration_card" name="ration_card">
+
+<div><br><a href="#" onclick="subject()">Enter Ration_ID and Click</a></br>
+  <table  align="center" border="1" bgcolor="#FFA500" class='familyclass'>
     </table></div><br>
 
 </body>
@@ -23,69 +31,47 @@
 <script type="text/javascript">
 
 function subject(){
-	var input = document.getElementById("name").value;
-    var input = document.getElementById("personcode").value;
-    var input = document.getElementById("age").value;
-    var input = document.getElementById("qualification").value;
-    var input = document.getElementById("occupation").value;
-    var input = document.getElementById("standard").value;
-    var input = document.getElementById("institution").value;
-    var input = document.getElementById("grade").value;
-
-    // var all = {
-    //     // rationcard: rationid,
-    //     name: name,
-    //     personcode: personcode,
-    //     // gender: gender,
-    //     // age: age,
-    //     qualification: qualification,
-    //     occupation: occupation,
-    //     standard: standard,
-    //     institution: institution,
-    //     grade: grade,
-
-    // };
-    // console.log()
-
+    var ration_card = document.getElementById("ration_card").value;  
     $.ajax({
     	type:'POST',
     	url:'/memdis/',
     	data:{
-    		// all:all,
+        ration_card:ration_card,
     		csrfmiddlewaretoken: '{{ csrf_token }}',
     	},
     success: function(response){
-		 var data=response['data'];
-     	 var str_head = '<th> NAME </th><th> AGE </th><th> GENDER </th><th> PERSONCODE </th><th> QUALIFICATION </th><th> OCCUPATION </th><th> STANDARD </th><th> INSTITUTION </th><th> GRADE </th>'
-      	 var startstr = '';
-         var str = '';
-         console.log(data)
-         	for (i=0; i<data.length; i++)
-               { 
-               var name = data[i]['name'];
-               var personcode = data[i]['personcode'];
-               var Age = data[i]['Age'];
-               var Gender = data[i]['Gender'];
-               var qualification = data[i]['qualification'];
-               var occupation = data[i]['occupation'];
-               var standard = data[i]['standard'];
-               var institution = data[i]['institution'];
-               var grade = data[i]['grade'];
-               
-               str += '<tr><td>'+name+'</td><td>'+Age+'</td><td>'+Gender+'</td><td>'+personcode+'</td><td>'+qualification+'</td><td>'+occupation+'</td><td>'+standard+'</td><td>'+institution+'</td><td>'+grade+'</td></tr>';
+		 var data = response;
+     	 if (response == 'none'){alert('Ration Id does not exists !')}
+       else{
+           var str_head = '<th> NAME </th><th> AGE </th><th> GENDER </th><th> PERSONCODE </th><th> QUALIFICATION </th><th> OCCUPATION </th><th> STANDARD </th><th> INSTITUTION </th><th> GRADE </th>'
+        	 var startstr = '';
+           var str = '';
+           // console.log(data)
+           	for (i=0; i<data.length; i++)
+                 { 
+                 var name = data[i]['name'];
+                 var personcode = data[i]['personcode'];
+                 var Age = data[i]['Age'];
+                 var Gender = data[i]['Gender'];
+                 var qualification = data[i]['qualification'];
+                 var occupation = data[i]['occupation'];
+                 var standard = data[i]['standard'];
+                 var institution = data[i]['institution'];
+                 var grade = data[i]['grade'];
+                 
+                 str += '<tr><td>'+name+'</td><td>'+Age+'</td><td>'+Gender+'</td><td>'+personcode+'</td><td>'+qualification+'</td><td>'+occupation+'</td><td>'+standard+'</td><td>'+institution+'</td><td>'+grade+'</td></tr>';              
+                 }
 
-               
-            
-               }
+                 var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
+                 $('.familyclass').append(html)  
+          }
 
-               var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
-               console.log(html)
-               $('.familyclass').append(html)  
 
-    },
-    });
+          },
+     });
   }
 
 
 </script>
 
+{% endblock %}

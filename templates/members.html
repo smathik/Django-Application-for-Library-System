@@ -3,45 +3,43 @@
 {% block content %}
 
 <html>
-<form>
-<body bgcolor="F0F8FF">
+<p><h2 align="left">Family_Members --> New ></p></h2> 
+
+<body bgcolor="#f4f4f4">
 {% csrf_token %}
 
-  <a id="new" type="new" href='/members/'>NEW</button></a>
-  <a id="edit" type="edit" href='/memdis/'>VIEW</button></a>
-  <a id="edit" type="edit" href='/display/'>EDIT</button></a>
 
 
-  <div align="center">
-  <font><h4 style = "bold" color = red>Ration ID :</font><input type='text' name="rationid" id='rationid'><br></h4>
+  
+<div><br>Ration ID :<input type='text' name="rationid" id='rationid'></br></div>
 
-   <h4>Person Name: <input type="text" id='name' name="name"><br>
-       <br><input type="radio" name="sex" value="male">Male</br>
-       <br><input type="radio" name="sex" value="female">Female</br>
+<br>Person Name: <input type="text" id='name' name="name"></br>
+<br><input type="radio" name="sex" value="male">Male</br>
+<br><input type="radio" name="sex" value="female">Female</br>
 
-   <br>Person code:<input type="text" id='personcode' name="personcode"></br>
-   <br>Age: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="age" name="age"></br> 
-   <br>Qualfication: &nbsp;<input type="text" id='qualification' name="qualification"></br>
-   <br>Occupation: &nbsp;&nbsp;<input type="text" id='occupation' name="occupation"></br><h4></div>
+<br>Person code:<input type="text" id='personcode' name="personcode"></br>
+<br>Age: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="age" name="age"></br> 
+<br>Qualfication: &nbsp;<input type="text" id='qualification' name="qualification"></br>
+<br>Occupation: &nbsp;&nbsp;<input type="text" id='occupation' name="occupation"></br>
+
+<button id="myButton" class="float-left submit-button" onclick="document.getElementById('optional_for_student').style.display='block';">Is Student?</button>
+<div id="optional_for_student" style="display:none;">
+Standard: <input type="text" id='standard' name="Standard">
+Institution: <input type="text" id='institution' name="Institution">
+Grade: <input type="text" id='grade' name="Grade"></div>
 
 
-   <button id="myButton" class="float-left submit-button" onclick="document.getElementById('optional_for_student').style.display='block';">Is Student?</button>
-   <div id="optional_for_student" style="display:none;">
-      <h5>Standard: </h5><input type="text" id='standard' name="Standard"><br><br>
-      <h5>Institution: </h5><input type="text" id='institution' name="Institution"><br><br>
-      <h5>Grade: </h5 ><input type="text" id='grade' name="Grade"><br><br></div>
+<div><br><button id="add" onclick="adde()">Save</button></br></div>
 
 
-    <div><br><button id="add" type="add" onclick="add()">Save</button></br></div>
 
-    <input type="reset" value="Reset"> 
-</form>
+</body>
+
 </html>
-
-
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
-  function add() {
+  function adde() {
+    // alert('oo')
 
     // console.log(rationid.value)
 
@@ -65,6 +63,7 @@
     var standard = document.getElementById("standard").value;
     var institution = document.getElementById("institution").value;
     var grade = document.getElementById("grade").value;
+    // var subject = document.getElementById("subject").value;
 
     var all = {
         rationcard: ration_id,
@@ -76,11 +75,11 @@
         occupation: occupation,
         standard: standard,
         institution: institution,
-        grade: grade
+        grade: grade,
 
     };
     console.log(all)
-
+    
     $.ajax({
         type: "POST",
         url: '/members/',
@@ -88,7 +87,9 @@
             all: all,
             csrfmiddlewaretoken: '{{ csrf_token }}',
         },
+
         success: function (response) {
+
         if (response=='notexists'){alert('sorry !!! The ration ID entered is not exists')}
         if (response=='notcomplete'){alert('You have to fill all the columns')}
         if (response=='personcode'){alert('Person Code should not be Empty !!!')}
@@ -101,7 +102,7 @@
     });
 }
 </script>
-</body>
+
 
 
 <!-- <button id="Edit" type="edit">Edit</button> -->

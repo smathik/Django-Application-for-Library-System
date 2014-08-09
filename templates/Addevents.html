@@ -1,50 +1,69 @@
-<head>
+{% extends "layout.html" %}
+{% block content %}
+
 <html>
-
+<p><h2 align="left">Events --> Add_Ration_ID></p></h2>
 <body bgcolor="F0F8FF"></body>
-<div align="center">
+<!-- <div align="center"></div> -->
 
-<br>Enter The Event Name : &nbsp;<input type="text" id="name"></br>
+<!-- <br>Enter The Event Name : &nbsp;<input type="text" id="name"></br> -->
 
-<br>Enter Family Ration ID :<input type='text' name="rationid" id='rationid' ></br>
+<a href="#" onclick="javascript:EvenT('EvenT');">Events:</a>
+  <select id="selectElementId"></select><br>
 
-<div align="center"> Date and Time <p id="time"></p></div>
+<br>Enter Family Ration ID :<input type="text" id="rationid" name="rationid" ></br>
+
+<!-- <br><div align="center"> Date and Time <p id="time"></p></div></br> -->
 
 <div><br><button id="add" type="add" onclick="add()">ADD</button></br></div>
-<form><input type="reset" value="Reset"></form>
-</htmL>
+
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
-	function add(){
-		
 
-		var ration_id = document.getElementById("rationid").value;
-		var name = document.getElementById("name").value;
-		
-		var all = {
-			name : name,
-			rationcard : ration_id,
-			time : time,
+	function EvenT(){
 
-		};
+	    $.ajax({
+		   type:"POST",
+		   url:/getEvents/,
+		   data:{
+			  csrfmiddlewaretoken: '{{ csrf_token }}',
+		         },		
+        success: function (response){			
+			select = document.getElementById('selectElementId');
+		    for (var i = 0; i<response.length; i++){
+			    var opt = document.createElement('option');
+			    opt.value = response[i];
+			    opt.innerHTML = response[i];
+			    select.appendChild(opt);
+			    }
+		},
+	});
+	
+}
 
-		// console.log(all)
+function add(){
+	var rationid = document.getElementById('rationid').value;
+	var Event = document.getElementById('selectElementId').value;
 
-		$.ajax({
-			type:"POST",
-			url:/Addevents/,
-			data:{
-				all:all,
-				csrfmiddlewaretoken: '{{ csrf_token }}',
-			},
-			success: function (response){
-				if (response=='saved'){alert('Your enteries have been Saved !!!!!')}
-
-				console.log(response);
-			},
+	$.ajax({
+		type:"POST",
+		url:/addFamilyToEvent/,
+		data:{
+			Event: Event,
+			rationid: rationid,
+			csrfmiddlewaretoken: '{{ csrf_token }}',
+		     },
+        success: function (response){			
+            if (response == 'success'){alert('Family Added Successfully')}
+            else if (response == 'family'){alert('Family does not Exists')}
+            else if (response == 'exists'){alert('Family Already Exists in this Event!')} 
+            }		     
 		});
-		
+    }	
 
-	}
+
 </script>
+</html>
+
+{% endblock %}

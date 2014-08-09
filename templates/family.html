@@ -4,7 +4,7 @@
 	<title>RATIONCARD DETAILS</title>
 </head>
 
-<body bgcolor="F0F8FF">
+<body bgcolor="#f4f4f4">
 {% csrf_token %}
 
 
@@ -13,6 +13,8 @@
 
 <!-- <li><a button id="view" type="view" href='/view/'>VIEW</button></a></li> -->
 
+
+<p><h2 align="left">Ration_ID --> New ></p></h2>
 
 
 <div align="center">
@@ -28,11 +30,11 @@
 
 <!-- <div><br><button id="edit"  type="edit" onclick="edit()">Edit</button></br></div>
  -->
-<div align="right">
+
 <br><input type='file' id="picture" value='browse'></br>
 
 
-<br><button id="save"  type="save" onclick="save()">Save</button></br></div>
+<br><button id="save"  type="save" onclick="save()">Save</button></br>
 
 <br><form><input type="reset" value="Reset"></br></div></form>
 
@@ -71,13 +73,11 @@
                     all: all,
                     // all:JSON.stringify(all),
                     csrfmiddlewaretoken: '{{csrf_token}}',
-                },
-
-       
+                },       
             success: function (response) {
                 if (response=='exists'){alert('sorry !!! The ration ID entered is already exists')}
                 else if (response=='notcomplete'){alert('You have to fill all the columns')}
-                else if (response=='saved'){alert('The Details have been saved succesfully')}
+                else if (response=='saved'){alert('The Ration_ID have been saved Added ! ! !')}
 
                 console.log(response);
             },

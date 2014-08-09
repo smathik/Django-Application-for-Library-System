@@ -4,7 +4,7 @@
 <html><title>VALUATION</title>
 <head><style type="text/css">
 h1 {
-    text-shadow: 5px 5px 5px #FF0000;
+    text-shadow: 5px 5px 5px #FF0001;
     color: white;
     font-size: 40px;
 
@@ -44,7 +44,7 @@ h1 {
 .item>.list
 {
     display : none;
-    background-color : #222222;
+    background-color : white;
 }
 
 .item:hover>.list
@@ -59,16 +59,16 @@ a{text-decoration: none;font-size: 20px;}
 <div id ="header">
 <h1 style="margin-bottom:0;height:50px;background-color:#33CC33;text-align:center;">ABDULLAH - IBN - MASWOOD - QURAN - ACADEMY</h1></div>
 <div align="center" id="menu" style="background-color:66FFCC;height:550px;width:175px;float:left;"><br/><br/><br/>
-<b>MAIN MENU</b><br>
-        <br><li class="item"><a href='/family/'>Family</a></br>
+<b><h2> MAIN MENU </b><br><br></h2>
+        <br><li class="item"><a href=''> -- Family</a></br>
             <ul class="list">
                 <li class="item"><a href="/family/"> --  New </a></li>
-                <li class="item"><a href="/display/"> -- Edit </a></li>
+                <li class="item"><a href="/display/"> -- Update </a></li>
                 <li class="item"><a href="/familyedit/"> -- Display </a></li>
             </ul>
             </li>
         </ul></br>
-        <br><li class="item"><a href='/members/'>Members</a></br>
+        <br><li class="item"><a href=''>&nbsp;&nbsp;&nbsp;-- Members</a></br>
             <ul class="list">
                 <li class="item"><a href="/members/"> -- New</a></li>
                <!--  <li class="item"><a href="/display/">Edit</a></li> -->
@@ -76,18 +76,27 @@ a{text-decoration: none;font-size: 20px;}
             </ul>
             </li>
         </ul></br>
-        <br><li class="item"><a href='/attendance/'>Attendance</a></br>
+        <br><li class="item"><a href=''>&nbsp;&nbsp;&nbsp;&nbsp;-- Attendance</a></br>
             <ul class="list">
-                <li class="item"><a href="/attendance/"> -- New Class</a></li>
+                <li class="item"><a href="/addclass/"> -- New Class</a></li>
                <!--  <li class="item"><a href="/display/">Edit</a></li> -->
                 <li class="item"><a href="/classlist/"> -- Attendance</a></li>
+                <li class="item"><a href='/checkAttendance/'> -- Check Status</a></li>
             </ul>
             </li>
         </ul></br>
-        <br><li><a href='/events'>Events</a></li></br>
-        <br><li><a href='/check/'>Check</a></li></br>   
-        <br><li><a href='/about/'>About</a></li></br>
+        <br><li class="item"><a href=''>-- Events</a></br>
+            <ul class="list">
+                <li class="item"><a href="/AddEvent/"> -- New Event</a></li>
+                <li class="item"><a href='/getEvents/'> -- Add Families</a></li>
+                <li class="item"><a href='/DisplayEventFamily/'> -- Display Events</a></li>
+            </ul>
+            </li>
+        </ul></br>  
+        <br><li class="item"><a href='/about/'> -- About</a></li></br>
+        <br><li class="item"><a href="/logout"> -- Logout</a></li></br>
         </div>
+
         <div align="center" id="content" style="height:475px;">
         {% block content %}
         {% endblock %}

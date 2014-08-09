@@ -1,10 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
 <html>
-<body bgcolor="F0F8FF">
+
+
+<body bgcolor="#f4f4f4">
+
+
+
+
+<p><h2 align="left">Ration_ID --> Update & Delete ></p></h2>
+
 <br>Enter The Ration ID : <input type="text" name="rationid" id="rationid"></br>
 
-<div><br><button type="search" id="search" onclick="search();">Search</input></div></button>
+<div><br><button type="search" id="search" onclick="search()">Search</input></div></button>
 
 <!-- <br> : <input type="text" name="rationid" id="rationid"></br> -->
 
@@ -16,13 +24,14 @@
 
 
 
-
+<!-- form id="Form"> -->
 
 <div><br><button id="save"  type="save" onclick="save()">Update</button></br></div>
+<br/><button type="button" id="delete" name="delete" onclick="Delete()"><b>Delete</b></button>	
 
 
 
-</html>
+
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
@@ -30,6 +39,7 @@
 
 
 function search(){
+	console.log("test");
 
 	var rationid = document.getElementById("rationid").value;
 
@@ -46,19 +56,24 @@ function search(){
     {
 	console.log(response);
 	// response.style.display = "none";
-	document.getElementById('code').value=response.code;
-	document.getElementById('street').value=response.street;
-	document.getElementById('city').value=response.city;
+
 	if(response=='none'){alert('RATION ID DOES NOT EXISTS !!!!!!!!!')}
+  else{
+  document.getElementById('code').value=response.code;
+  document.getElementById('street').value=response.street;
+  document.getElementById('city').value=response.city;
+  }
 	}
 	});
-}
+};
 
 	function save(){
 	 	var rationid = document.getElementById("rationid").value;
         var street = document.getElementById("street").value;
         var city = document.getElementById("city").value;
         var code = document.getElementById("code").value;
+
+        // document.getElementById("Form").reset();
 
    // var all = {
    //          rationid: rationid,
@@ -82,14 +97,56 @@ function search(){
 			            csrfmiddlewaretoken: '{{csrf_token}}',
                       },
 	success:function(response){
-		if(response=='saved'){alert('The Ration Card have been Updated')}
 		console.log(response);
+		if(response=='saved'){alert('The Ration Card have been Updated ! ! !')}
+		else if (response == 'none'){alert('Ration card does not exists ! !')}
+		
 	},
 
 	});
 }
+
+ function Delete () {
+	 	var rationid = document.getElementById("rationid").value;
+        var street = document.getElementById("street").value;
+        var city = document.getElementById("city").value;
+        var code = document.getElementById("code").value;
+
+        // document.getElementById("Form").reset();
+   // var all = {
+   //          uid: uid,
+   //          uname: uname,
+   //          mobile: mobile,
+   //          uaddr: uaddr,
+            
+   //      };
+  
+  // console.log(all)
+  // alert('sss')
+  $.ajax({
+                type: "POST",
+                url: '/ID_delete/',
+                data: {
+                  		rationid: rationid,
+			            street: street,
+			            city: city,
+			            code: code,
+                  		csrfmiddlewaretoken: '{{csrf_token}}',
+                      },
+  success:function(response){
+  	alert(response)
+  	console.log(response);
+    // if(response == 'deleted'){alert('Ration_ID Details have been deleted')}
+    // else{alert('Ration_ID doest not Exists ! !')}
+   
+  },
+
+  });
+}	
 </script>
 </body>
+</html>
+
 {% endblock %}
 
 

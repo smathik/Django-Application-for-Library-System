@@ -1,8 +1,5 @@
 from django.db import models
-
-
-
-
+from datetime import date
 
 class Family(models.Model):	
 	ration_card = models.CharField(max_length=50)
@@ -10,9 +7,6 @@ class Family(models.Model):
 	street = models.CharField(max_length=50)
 	code = models.IntegerField(max_length=50)
 	picture = models.ImageField(upload_to='/home/smathik/family/gallery')
-
-	
-
 
 class FamilyMember(models.Model):
 	name = models.CharField(max_length=50)
@@ -25,64 +19,32 @@ class FamilyMember(models.Model):
 	IsStudent = models.BooleanField(default=False)
 	standard = models.CharField(max_length=50, null=True, blank=True)
 	institution = models.CharField(max_length=50, null=True, blank=True)
-	grade=models.CharField(max_length=50, null=True, blank=True)
-	classname = models.ForeignKey('Classes')
-	attendance = models.BooleanField(default=True)
+	grade = models.CharField(max_length=50, null=True, blank=True)
 
-
-
-# class StudentDetails(models.Model):
-# 	# student = models.OneToOne('IsStudent')
-	# standard = models.CharField(max_length=50)
-	# institution = models.CharField(max_length=50) 
-	# grade=models.CharField(max_length=50)
-
-
-class Classes(models.Model):
-	# familymember = models.ForeignKey('FamilyMember')
+class Class(models.Model):
 	subject = models.CharField(max_length=50)
-	Timing = models.CharField(max_length=50)
 	
+class StudentClass(models.Model):
+	classname = models.ForeignKey('Class')
+	student = models.ForeignKey('FamilyMember', null=True, blank=True)
 
-class new(models.Model):
-	name = models.CharField(max_length=250)
-	
-    
-
-class classlist(models.Model):
-	classname = models.ForeignKey('Classes')
-	classname = models.CharField(max_length=50)
+class Attendance(models.Model):
+	def Date():
+		return date.today().strftime('%Y-%m-%d')
+	classname = models.ForeignKey('Class')
+	student = models.ForeignKey('FamilyMember')
 	attendance = models.BooleanField(default=False)
+	date = models.CharField(max_length=11, default=Date)
 			
-	
-
-
-class events(models.Model):
+class Event(models.Model):
 	name = models.CharField(max_length=50)
 
-class eventssave(models.Model):
-	events = models.ForeignKey('events')
+class EventData(models.Model):
+	def Date():
+		return date.today().strftime('%Y-%m-%d')
+	event = models.ForeignKey('Event')
 	family = models.ForeignKey('Family')
-	date = models.DateTimeField(auto_now_add=True, blank=True)
+	date = models.CharField(max_length=11, default=Date)
 	
 	
 	
-
-
-
-
-
-
-# class gallery(models.Model):
-# 	pictures = models.ManyToManyField(Picture)
-
-# class Attendance(models.Model):
-# 	date = models.DateTimeField(auto_now_add=True)
-# 	classcode = models.ForeignKey('Classes')
-# 	# member = models.ForeignKey('StudentDetails')
-# 	attendance = models.BooleanField(default=False)
-
-# class Foods(model.Models):
-# 	attendance = models.ForeignKey('Family_mem')
-# 	stocks = models.IntegerField(max_length=100000)
-	 

@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<html>
+<p><h2 align="left">Events --> Display></p></h2>
+<body bgcolor="F0F8FF"></body>
+<!-- <div align="center"></div> -->
+
+<!-- <br>Enter The Event Name : &nbsp;<input type="text" id="name"></br> -->
+
+<a href="#" onclick="javascript:EvenT('EvenT');">Events:</a>
+  <select id="selectElementId"></select><br>
+
+
+<!-- <br><div align="center"> Date and Time <p id="time"></p></div></br> -->
+
+<div><br><button id="add" type="add" onclick="Display()">Display</button></br></div>
+
+<table  align="center" border="1" bgcolor="#FFA500" class='familyclass'></table><br>
+
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+
+	function EvenT(){
+
+	    $.ajax({
+		   type:"POST",
+		   url:/getEvents/,
+		   data:{
+			  csrfmiddlewaretoken: '{{ csrf_token }}',
+		         },		
+        success: function (response){			
+			select = document.getElementById('selectElementId');
+		    for (var i = 0; i<response.length; i++){
+			    var opt = document.createElement('option');
+			    opt.value = response[i];
+			    opt.innerHTML = response[i];
+			    select.appendChild(opt);
+			    }
+		},
+	});
+	
+}
+
+function Display(){
+	var Event = document.getElementById('selectElementId').value;
+    $.ajax({
+           type: "POST",
+           url: '/DisplayEventFamily/',
+           data: {
+                 Event: Event,
+                 csrfmiddlewaretoken: '{{csrf_token}}',
+                 },
+            success: function (response)
+                {   
+                var len = response.length;                           
+                        var str_head = '<th>RATION CARD ID</th>';
+                        var startstr = '';
+                        var str = '';                   
+                      $('.familyclass').empty();
+            if (len != 0){
+              for (i=0; i<len; i++)
+                    { 
+                    str += '<tr name="student"><td>'+response[i]+'</td></tr>';           
+                  }
+            var html = '<tr>'+str_head +'</tr>'+str
+            $('.familyclass').append(html);
+              }
+            else {alert('No families !!!')}      
+            $('.familyclass').append('');
+            },
+       });
+  }
+
+</script>
+</html>
+
+{% endblock %}

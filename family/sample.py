@@ -46,3 +46,24 @@ th>Attendance</th>
  -->
 
 
+def cal():
+  print "welcome to the application"
+  print "select your option"
+  choice = 0
+  choice = input("Enter your option")
+  if choice == 1:
+      b = input("Enter")
+      c = input("Enter")
+      print b+c 
+  elif choice == 2:
+      b = input("Enter")
+      c = input("Enter")
+      print b-c 
+  elif choice == 3:
+      b = input("Enter")
+      c = input("Enter")
+      print b*c 
+  elif choice == 4:
+      b = input("Enter")
+      c = input("Enter")
+      print b/c 

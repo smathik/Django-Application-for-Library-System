@@ -2,113 +2,111 @@
 {% block content %}
 
 <html>
-<head>
 
 <body bgcolor="F0F8FF">
 
-<form>
 <a href="#" onclick="javascript:subject('subject');">Classes:</a>
-<select id="selectElementId"></select>	
-<id="name">
-<div><button id="save" type="save" onclick="savee()">Save</button></div>
-</body>
-</html>
+  <select id="selectElementId"></select><br>
 
-
-	
-
-    
-
-<!-- <button type="button" onclick="ok"> OK </button>
- -->
-	
-<!-- <button type="button"> Save </button> -->
-
-</head>
-
-
-</body>
-</html>
-
+<table  align="center" height="300" width="200" border="1" bgcolor="#FFA500" class='familyclass'></table><br>
+<div><button id="save" type="save" onclick="display()">Display</button></div><br>
+<div><button id="save" type="save" onclick="save()">Save</button></div>
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
-		// function ok(){
-		// 	var input_gender = document.getElementById('name')
 
-		// 	$.ajax({
-  //              type: "POST",
-  //              url: '/classlist/',
-  //               data: {
-  //                    post1:'post1',
-  //                    csrfmiddlewaretoken: '{{csrf_token}}',
-  //                     },
+function subject()  
+    {    
+    $.ajax({
+            type: "POST",
+            url: '/classlist/',
+            data: {
+                  csrfmiddlewaretoken: '{{csrf_token}}',
+                  },
+    success : function(response)
+      {
+      select = document.getElementById('selectElementId');
+      select.innerHTML = '';
+      for (var i = 0; i<response.length; i++){
+          var opt = document.createElement('option');
+          opt.value = response[i];
+          opt.innerHTML = response[i];
+          select.appendChild(opt);
+          }
+        },
+    });
 
-		// }
+    }
 
-		function subject()
-	
-		{
+function display(){
+    var classlist = document.getElementById("selectElementId");
+    var classname = classlist.options[classlist.selectedIndex].value;
+    $.ajax({
+           type: "POST",
+           url: '/getStudents/',
+           data: {
+                 classname: classname,
+                 csrfmiddlewaretoken: '{{csrf_token}}',
+                 },
+            success: function (response)
+                { 
+                var len = response.length;                           
+                var str_head = '<th>NAME</th><th>ADD</th>';
+                var startstr = '';
+                var str = '';           
+                $('.familyclass').empty();
+            if (len != 0){
+              for (i=0; i<len; i++)
+                  { 
+                  var data = response[i];
+                  str += '<tr name="student"><td>'+data['name']+' '+data['personcode']+'</td><td><div><input type="checkbox" name="attendance" value="'+data['name']+' '+data['personcode']+'"></div></td></tr>';           
+                  }
+            var html = '<tr>'+str_head +'</tr>'+str
+            $('.familyclass').append(html);
+              }
+            else {alert('No students in this Class')}      
+            $('.familyclass').append('');
+            },
+       });
+  }
 
-		var input_gender = document.getElementsByName('subject');
-		var input_gender = document.getElementsByName('name');
-
-    
-		$.ajax({
-               type: "POST",
-               url: '/classlist/',
-                data: {
-                     // post:'POST',
-                     csrfmiddlewaretoken: '{{csrf_token}}',
-                      },
-	success : function(response)
-		{
-
-			console.log(response);
-			var data = response['data'];
-			console.log(data)
-			select = document.getElementById('selectElementId');
-
-			for (var i = 0; i<=data.length; i++){
-    			var opt = document.createElement('option');
-    			opt.value = data[i];
-    			opt.innerHTML = data[i];
-    			select.appendChild(opt);
-				}
-
-		},
-		});
-
-            
-
+  function save(){
+    var classlist = document.getElementById("selectElementId");
+    var classname = classlist.options[classlist.selectedIndex].value;
+    var students = document.getElementsByName('student');
+    var all_data = [];
+    for(var i=0;i<students.length;i++)
+       {
+        var item = students[i];
+        if(item.getElementsByTagName('input')[0].checked == true)
+            {
+             all_data.push(item.getElementsByTagName('td')[0].innerText);
+            }
         }
-
-
-
-function savee(){
-		var e = document.getElementById("selectElementId");
-		var strUser = e.options[e.selectedIndex].value;
-		$.ajax({
-
-               type: "POST",
-               url: '/get_details/',
-               data: {
-               		 student_list:strUser,
-                     csrfmiddlewaretoken: '{{csrf_token}}',
-                      },
-
-                success: function (response)
-                    {
-                    	console.log(response)
-				 },
-
-      		 });
-
-	}
+        var DATA = {
+        classname: classname,
+        studentData: all_data
+        }
+      
+      if (all_data.length != 0){
+        $.ajax({
+          type : 'POST',
+          url : '/saveAttendance/',
+          data:{
+                data: JSON.stringify(DATA),
+                csrfmiddlewaretoken: '{{csrf_token}}',
+                },
+          success: function(response){
+            if(response == 'success')alert('Successfully Added to '+classname)
+            else if(response == 'exists')alert('Already marked attendance this day to the class- '+classname)
+            },
+        });
+      }
+    }
+  
 </script>
 
-
-
-
+</body>
+</html>
 
 {% endblock %}
