@@ -76,6 +76,7 @@ def familyedit(request):
     return render(request,'familyedit.html')
 
 
+
 @login_required
 def DeleteFamily(request):
   if request.method == 'POST':
@@ -257,7 +258,7 @@ def addFamilyToEvent(request):
       elif EventData.objects.filter(event=event, family=family[0]):
           response = 'exists'
       else:
-          EventData.objects.create(evens=event, family=family[0])
+          EventData.objects.create(event=event, family=family[0])
           response = 'success'
       return HttpResponse(content=json.dumps(response),content_type='Application/json')
 
