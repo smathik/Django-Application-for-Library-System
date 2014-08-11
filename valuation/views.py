@@ -64,7 +64,7 @@ def classes(request):
     return render(request,'classes.html')
 
 @login_required
-def familyedit(request):
+def familydisplay(request):
     data =[]
     temp = {}
     if request.method == 'POST': 
@@ -73,9 +73,21 @@ def familyedit(request):
             for i in datadump:
               data.append({'ration_card':i.ration_card,'street':i.street,'city':i.city,'code':i.code})
             return HttpResponse(content=json.dumps({'data': data}),content_type='Application/json')
-    return render(request,'familyedit.html')
+    return render(request,'familydisplay.html')
 
+@login_required
+def rationid_details(request):
+    data = []
+    temp = {}
+    if request.method == 'POST':
+            post = request.POST
+            ration_card = post['rationid']
+            # datadump = Family.objects.all(ration_card=ration_card)
+            # datadump = Family.objects.filter(family = fami)
+            family = Family.objects.get(ration_card=ration_card)
+            data = {'city': family.city, 'street':family.street, 'code': family.code}
 
+            return HttpResponse(content=json.dumps({'data': data}),content_type='Application/json')
 
 @login_required
 def DeleteFamily(request):

@@ -41,6 +41,7 @@ function subject(){
     	},
     success: function(response){
 		 var data = response;
+
      	 if (response == 'none'){alert('Ration Id does not exists !')}
        else{
            var str_head = '<th> NAME </th><th> AGE </th><th> GENDER </th><th> PERSONCODE </th><th> QUALIFICATION </th><th> OCCUPATION </th><th> STANDARD </th><th> INSTITUTION </th><th> GRADE </th>'
@@ -63,15 +64,15 @@ function subject(){
                  }
 
                  var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
-                 $('.familyclass').append(html)  
+                  
+                 $('.familyclass').append(html)
+
           }
 
 
           },
      });
   }
-
-
 </script>
 
 {% endblock %}

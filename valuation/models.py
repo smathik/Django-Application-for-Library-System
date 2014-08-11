@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date
+from django.core.files import File
 
 class Family(models.Model):	
 	ration_card = models.CharField(max_length=50)

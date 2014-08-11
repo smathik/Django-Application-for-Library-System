@@ -3,11 +3,9 @@
 <head>
 	<title>RATIONCARD DETAILS</title>
 </head>
-
+<html>
 <body bgcolor="#f4f4f4">
 {% csrf_token %}
-
-
 
 
 
@@ -19,24 +17,24 @@
 
 <div align="center">
 
-<br>Ration_ID : </h1><input type="text" id='rationid' name="rationid"></br>
+<h2><br>Ration_ID :<input type="text" id='rationid' name="rationid"></br>
 
 
 
 
 <br>Street: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id='street' name="street"></br>
 <br>City: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id='city' name="city"></br>
-<br>Zip_Code: &nbsp;&nbsp;&nbsp;<input type="text" id='code' name="code"></br></div>
+<br>Zip_Code: <input type="text" id='code' name="code"></br></h2> </div>  
 
-<!-- <div><br><button id="edit"  type="edit" onclick="edit()">Edit</button></br></div>
- -->
+
 
 <br><input type='file' id="picture" value='browse'></br>
 
 
+
 <br><button id="save"  type="save" onclick="save()">Save</button></br>
 
-<br><form><input type="reset" value="Reset"></br></div></form>
+
 
 
 
@@ -47,6 +45,10 @@
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
+    function clear(){
+        alert('s')
+        document.getElementById("Form").reset();
+    }
    
  
     function save() {
@@ -55,7 +57,6 @@
         var city = document.getElementById("city").value;
         var code = document.getElementById("code").value;
         var picture = document.getElementById("picture").value;
-
         var all = {
             rationcard: rationid,
             street: street,
@@ -78,13 +79,20 @@
                 if (response=='exists'){alert('sorry !!! The ration ID entered is already exists')}
                 else if (response=='notcomplete'){alert('You have to fill all the columns')}
                 else if (response=='saved'){alert('The Ration_ID have been saved Added ! ! !')}
+                
 
                 console.log(response);
             },
             });
+        document.getElementById("rationid").value='';
+        document.getElementById("street").value='';
+        document.getElementById("city").value='';
+        document.getElementById("code").value='';
+        document.getElementById("picture").value='';   
     }
 </script>
 </body>
+</html>
 
 
 {% endblock %}

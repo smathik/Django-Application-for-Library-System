@@ -11,11 +11,13 @@
 
 
   
-<div><br>Ration ID :<input type='text' name="rationid" id='rationid'></br></div>
+<h3><div><br>Ration ID :<input type='text' onPointerMove="keyPress()" name="rationid" id='rationid'></br></div>
+<table  align="center" border="1" bgcolor="#FFA500" class='familyclass'></table>
+<!-- <input type="text" onkeydown="keyPress()" size="20"/> -->
 
 <br>Person Name: <input type="text" id='name' name="name"></br>
-<br><input type="radio" name="sex" value="male">Male</br>
-<br><input type="radio" name="sex" value="female">Female</br>
+<input type="radio" name="sex" value="male">Male
+<input type="radio" name="sex" value="female">Female
 
 <br>Person code:<input type="text" id='personcode' name="personcode"></br>
 <br>Age: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="age" name="age"></br> 
@@ -26,7 +28,7 @@
 <div id="optional_for_student" style="display:none;">
 Standard: <input type="text" id='standard' name="Standard">
 Institution: <input type="text" id='institution' name="Institution">
-Grade: <input type="text" id='grade' name="Grade"></div>
+Grade: <input type="text" id='grade' name="Grade"></div></h3>
 
 
 <div><br><button id="add" onclick="adde()">Save</button></br></div>
@@ -38,6 +40,64 @@ Grade: <input type="text" id='grade' name="Grade"></div>
 </html>
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
+$(document).on('keydown', '#rationid', function(e) {  
+  var keyCode = e.keyCode || e.which; 
+
+  if (keyCode == 9) { 
+    // e.preventDefault();
+    // call custom function here
+    keyPress();
+  } 
+});
+
+// $('#rationid').live('keypress', function(e) {
+//     if (e.keyCode === 9) {
+//         e.preventDefault();
+//         // do work
+//     }
+// });
+
+  function keyPress()
+    {
+    var rationid = document.getElementById("rationid").value;
+    // alert('e')
+    $.ajax({
+               type: "POST",
+               url: '/rationid_details/',
+                data: {
+                     rationid: rationid,
+                     // post:'POST',
+                     csrfmiddlewaretoken: '{{csrf_token}}',
+                      },
+    success : function(response)
+    {
+
+      console.log(response);
+      var data=response['data'];
+      var str_head = '<th>STREET</th><th>CITY</th><th>CODE</th>'
+      var startstr = '';
+      var str = '';
+      
+            // for (i=0; i<data.length; i++)
+               { 
+               var street = data['street'];
+               var city = data['city'];
+               var code = data['code'];
+               
+               str += '</tr><td>'+street+'</td><td>'+city+'</td><td>'+code+'</td></tr>';
+
+               // var res = str.concat('<tr>rationid="rationid"><td >', rationid, '</td><td>', street,'</td><td></td></tr>' city,'</td><td>' code,'</td><td></td></tr>')
+            
+               }
+               console.log(str)
+               var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
+
+               $('.familyclass').empty();
+               $('.familyclass').append(html)  
+
+    },
+    });
+  }
   function adde() {
     // alert('oo')
 
@@ -100,6 +160,15 @@ Grade: <input type="text" id='grade' name="Grade"></div>
         },
 
     });
+document.getElementById("rationid").value='';
+document.getElementById("name").value='';
+document.getElementById("personcode").value='';
+document.getElementById("age").value='';
+document.getElementById("qualification").value='';
+document.getElementById("occupation").value='';
+document.getElementById("standard").value='';
+document.getElementById("institution").value=''; 
+document.getElementById("grade").value='';  
 }
 </script>
 

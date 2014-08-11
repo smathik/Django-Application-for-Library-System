@@ -3,7 +3,9 @@
 
 <html>
 
-<body bgcolor="F0F8FF">
+<body bgcolor="#f4f4f4">
+
+<p><h2 align="left">Attendance --> Mark_Students For Class ></p></h2> 
 
 <a href="#" onclick="javascript:subject('subject');">Classes:</a>
   <select id="selectElementId"></select><br>
@@ -103,6 +105,11 @@ function display(){
         });
       }
     }
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+    subject();
+});
   
 </script>
 

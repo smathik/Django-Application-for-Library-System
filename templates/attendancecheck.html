@@ -1,14 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
 <html>
-<body bgcolor="F0F8FF"> 
+<body bgcolor="#f4f4f4"> 
 
 
-    <h1>Enter the Person Id:</h1> <input type="text" id="personcode" name="personcode"><br><br>
+<p><h2 align="left">Attendance -->Check Person_Status ></p></h2> 
 
-    <a href="#" onclick="javascript:subject('subject');">Class:</a>
-    <select id="selectElementId"></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+    
  
+    <h3>Enter the Person Id:<input type="text" id="personcode" name="personcode">
     <a href="#" onclick="javascript:year('year');">Year:</a>
     <select id="selectyear"></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
 
@@ -20,9 +22,12 @@
 
     <!-- <form><input type="reset" value="Reset"></form> -->
 
-    <div><br><br><button id="check" type="check" onclick="check()">Check</button></br></div>
-    <div><br><br><button id="check" type="check" onclick="ListAll()">List All</button></br></div>
-<table  align="center" border="1" bgcolor="#FFA500" class='familyclass'></table><br>
+    <div><br><br><button id="check" type="check" onclick="check()">Check</button></br></div></h3>
+
+    <a href="#" onclick="javascript:subject('subject');"> Select Class:</a>
+    <select id="selectElementId"></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div><br><br><button id="check" type="check" onclick="ListAll()">List All</button></div>
+    <table  align="center" border="1" bgcolor="#FFA500" class='familyclass'></table><br>
 
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
@@ -93,7 +98,7 @@ function ListAll(){
 
     function year()  
         {    
-        var years = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,]
+        var years = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]
         select = document.getElementById('selectyear');
         select.innerHTML = '';
         for (var i = 0; i<years.length; i++){
@@ -156,7 +161,12 @@ function ListAll(){
        });
 
         }
-  
+  $( document ).ready(function() {
+    subject();
+    year();
+    month();
+    day();
+});
 
 </script>
 </body>

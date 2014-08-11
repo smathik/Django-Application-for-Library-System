@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% block content %}
+<body bgcolor="#f4f4f4">
+<html>
+<p><h2 align="left">Ration_ID --> Display ></p></h2>
+<type id="rationid">
+<type id="street">
+<type id="city">
+<type id="code">
+<type id="picture">
+
+
+<!-- <input type="image" src="../static/submit.gif" alt="Submit" onclick="Submit();" align="right" width="48" height="48"> -->
+
+<div><br><a href="#" onclick="subject()">List  of  Families  with  Details ! ! !</a></br>
+  <table  align="center" height="300" width="400" border="1" bgcolor="#FFA500" class='familyclass'>
+    </table></div><br>
+  
+</type>
+
+<!-- <form><input type="reset" value="Reset"></form> -->
+
+<script src="{{ STATIC_URL }}js/min.js"></script>
+<script type="text/javascript">
+
+
+function subject()
+  
+  {
+   
+  // var input = document.getElementById("rationid").value;
+  // var input = document.getElementById("street").value;
+  // var input = document.getElementById("city").value;
+  // var input = document.getElementById("code").value;
+  // var input = document.getElementById("picture").value;
+
+    
+  $.ajax({
+               type: "POST",
+               url: '/familydisplay/',
+                data: {
+                     // post:'POST',
+                     csrfmiddlewaretoken: '{{csrf_token}}',
+                      },
+    success : function(response)
+    {
+
+      console.log(response);
+
+      var data=response['data'];
+      var str_head = '<th>RATION CARD</th><th>STREET</th><th>CITY</th><th>CODE</th>'
+      var startstr = '';
+      var str = '';
+      
+            for (i=0; i<data.length; i++)
+               { 
+               var rationid = data[i]['ration_card'];
+               var street = data[i]['street'];
+               var city = data[i]['city'];
+               var code = data[i]['code'];
+               
+               str += '<tr><td>'+rationid+'</td><td>'+street+'</td><td>'+city+'</td><td>'+code+'</td></tr>';
+
+               // var res = str.concat('<tr>rationid="rationid"><td >', rationid, '</td><td>', street,'</td><td></td></tr>' city,'</td><td>' code,'</td><td></td></tr>')
+            
+               }
+               console.log(str)
+               var html = '<table><tr>'+str_head +'</tr>'+ str+'</table>';
+               $('.familyclass').append(html)  
+
+    },
+    });
+  }
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+    subject();
+});
+</script>
+
+
+
+{% endblock %}
