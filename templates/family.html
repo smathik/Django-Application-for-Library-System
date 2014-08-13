@@ -1,15 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
 <head>
-	<title>RATIONCARD DETAILS</title>
+    <title>RATIONCARD DETAILS</title>
 </head>
 <html>
 <body bgcolor="#f4f4f4">
 {% csrf_token %}
 
-
-
-<!-- <li><a button id="view" type="view" href='/view/'>VIEW</button></a></li> -->
 
 
 <p><h2 align="left">Ration_ID --> New ></p></h2>
@@ -28,8 +25,6 @@
 
 
 
-<br><input type='file' id="picture" value='browse'></br>
-
 
 
 <br><button id="save"  type="save" onclick="save()">Save</button></br>
@@ -45,24 +40,16 @@
 
 <script src="{{ STATIC_URL }}js/min.js"></script>
 <script type="text/javascript">
-    function clear(){
-        alert('s')
-        document.getElementById("Form").reset();
-    }
-   
- 
     function save() {
         var rationid = document.getElementById("rationid").value;
         var street = document.getElementById("street").value;
         var city = document.getElementById("city").value;
         var code = document.getElementById("code").value;
-        var picture = document.getElementById("picture").value;
         var all = {
             rationcard: rationid,
             street: street,
             city: city,
             code: code,
-            picture: picture,
         };
 
         console.log(all)
@@ -88,7 +75,6 @@
         document.getElementById("street").value='';
         document.getElementById("city").value='';
         document.getElementById("code").value='';
-        document.getElementById("picture").value='';   
     }
 </script>
 </body>
@@ -96,6 +82,3 @@
 
 
 {% endblock %}
-
-
-

@@ -1,13 +1,17 @@
 from django.db import models
 from datetime import date
 from django.core.files import File
+from PIL import Image
+import base64
+
+
+
 
 class Family(models.Model):	
 	ration_card = models.CharField(max_length=50)
 	city = models.CharField(max_length=50)
 	street = models.CharField(max_length=50)
 	code = models.IntegerField(max_length=50)
-	picture = models.ImageField(upload_to='/home/smathik/family/gallery')
 
 class FamilyMember(models.Model):
 	name = models.CharField(max_length=50)
@@ -46,6 +50,21 @@ class EventData(models.Model):
 	event = models.ForeignKey('Event')
 	family = models.ForeignKey('Family')
 	date = models.CharField(max_length=11, default=Date)
+
+
+
+
 	
-	
-	
+# class CachedImage(models.Model):
+#     url = models.CharField(max_length=255, unique=True)
+#     photo = models.ImageField(upload_to='/home/smathik/family/gallery', blank=True)
+
+# class Category(models.Model):
+ 
+
+# 	class Album(models.Model):   
+#     	category = models.ForeignKey(Category, related_name='albums')
+
+# class Image(models.Model):
+#     album = models.ForeignKey(Album)
+    # image = models.ImageField(upload_to = 'home/smathik/family/gallery')

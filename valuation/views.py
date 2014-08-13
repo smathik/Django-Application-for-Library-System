@@ -35,21 +35,40 @@ def home(request):
 @login_required
 def family(request):
       if request.method == 'POST':
-        post, data, req_field  = request.POST, {}, ['rationcard' ,'street', 'city', 'code','picture']
+        post, data, req_field  = request.POST, {}, ['rationcard' ,'street', 'city', 'code']
         for i in req_field:
             data[i] = post['all[%s]'%i]
         dump = 'notcomplete' if '' in data.values() else 'exists' if Family.objects.filter(ration_card=data['rationcard']) else None       
         if dump:
             return HttpResponse(content=json.dumps(dump),content_type='Application/json')
-      
         Family.objects.create( ration_card=data['rationcard'], 
                                street=data['street'],
                                city=data['city'],
                                code=data['code'],
-                               picture=data['picture'])
+                               # picture=data['picture'],
+                               )
         dump = 'saved'
         return HttpResponse(content=json.dumps(dump),content_type='Application/json')
-      return render(request,'family.html')  
+      return render(request,'family.html') 
+
+# def family_pic(request):
+#   if request.method == 'POST':
+#     pic = request.POST['data']
+#     Family.objects.create(picture=pic)
+#     return HttpResponse(content=json.dumps(dump),content_type='Application/json')
+
+
+@login_required
+def AddEvent(request):
+    if request.method == 'POST':
+        event = request.POST['eventName']
+        response = 'success'
+        if Event.objects.filter(name=event):
+            response = 'exists'
+        else:
+            Event.objects.create(name=event)
+        return HttpResponse(content=json.dumps(response),content_type='Application/json')
+    return render(request,'events.html')
 
 @login_required
 def about(request):
@@ -337,17 +356,6 @@ def saveStudentData(request):
         response = 'exists'
     return HttpResponse(content=json.dumps(response),content_type='Application/json')    
 
-@login_required
-def AddEvent(request):
-    if request.method == 'POST':
-        event = request.POST['eventName']
-        response = 'success'
-        if Event.objects.filter(name=event):
-            response = 'exists'
-        else:
-            Event.objects.create(name=event)
-        return HttpResponse(content=json.dumps(response),content_type='Application/json')
-    return render(request,'events.html')
 
 @login_required
 def checkAttendance(request):
@@ -397,3 +405,16 @@ def DisplayEventFamily(request):
     return render(request, 'displayEventFamily.html')
 
 
+
+# @login_required
+# def cache(self):
+#         if self.url and not self.photo:
+#             result = urllib.urlretrieve(self.url)
+#             self.photo.save(
+#                     os.path.basename(self.url),
+#                     File(open(result[0]))
+#                     )
+#             self.save()
+# def detail(request, album_id):
+#     album = get_object_or_404(Album, pk=album_id)
+#     return render(request, 'gallery/detail.html', {'album': album})

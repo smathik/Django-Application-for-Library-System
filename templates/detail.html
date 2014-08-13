@@ -1,0 +1,4 @@
+<h1>{{ album.title }}</h1>
+{% for image in album.image_set.all %}
+  <a>  <img src="{{ image.image.url }}" height="420"></a>
+{% endfor %}

@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, include, url
-
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
-from valuation.views import *#home,attendance,members,about,registration,family,classes,login,current_datetime, check
+from valuation.views import *
 urlpatterns = patterns('',
-    # Examples:
+   
     url(r'^$', loginpage),
     url(r'^login/',login_check),
     url(r'^home/', home),
@@ -33,8 +34,13 @@ urlpatterns = patterns('',
     url(r'^DisplayEventFamily/', DisplayEventFamily),
     url(r'^DeleteFamily/', DeleteFamily),
     url(r'^rationid_details/', rationid_details),
-
+    # url(r'^family_pic/', family_pic),
+    # url(r'^sample/', sample),
+    # urlpatterns += staticfiles_urlpatterns()
+    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+        
 
     url(r'^admin/', include(admin.site.urls)),
 
-)
+) 
+# * static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

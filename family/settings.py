@@ -97,8 +97,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# STATIC_ROOT = '/home/smathik/family/static/'
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',)
 
 STATICFILES_DIRS = ('/home/smathik/family/static',)
+
+MEDIA_ROOT='/home/smathik/family/gallery'
+
+
+MEDIA_URL='/gallery/'
+
+
+
+
+
